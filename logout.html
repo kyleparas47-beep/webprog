@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logout Page</title>
+  <link rel="stylesheet" href="logout.css" />
+</head>
+<body>
+  <div class="logout-container">
+    <header class="logout-header">
+      <button onclick="window.location.href='student_page.php'"class="back-btn">&#x2190;</button>
+      <h2>Profile Information</h2>
+    </header>
+    <div class="profile-info">
+      <img class="avatar" src="https://randomuser.me/api/portraits/men/76.jpg" alt="Avatar" />
+      <div class="user-details">
+        <div class="name">Dela Cruz, Juan</div>
+        <div class="email">1delacruz@gmail.com</div>
+      </div>
+    </div>
+    <nav class="logout-menu">
+      <button onclick="window.location.href='MyProfilePage.php'" class="menu-btn">
+        <span class="icon">&#128100;</span>
+        <span class="text">My Profile</span>
+        <span class="arrow">&#8250;</span>
+      </button>
+      <button class="menu-btn">
+        <span class="icon">&#9881;</span>
+        <span class="text">Settings</span>
+        <span class="arrow">&#8250;</span>
+      </button>
+      <button class="menu-btn">
+        <span class="icon">&#128276;</span>
+        <span class="text">Notifications</span>
+        <span class="arrow">&#8250;</span>
+      </button>
+      <button onclick="window.location.href='logout.php'" class="menu-btn logout-btn">
+        <span class="icon">&#128682;</span>
+        <span class="text">Log Out</span>
+        <span class="arrow">&#8250;</span>
+      </button>
+    </nav>
+  </div>
+</body>
+</html>

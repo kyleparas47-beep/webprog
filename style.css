@@ -1,0 +1,227 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html, body {
+    height: 100%;
+    overflow-y: hidden;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image: url("assets/LOG\ IN\ UI\ \(2\).jpg");
+    color: #333;
+    padding: 20px 0;
+}
+
+.container {
+    margin: 0 15px;
+    position: relative;
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    width: 100%;
+    max-width: 400px;
+    padding: 35px 25px;
+    background: linear-gradient(145deg, #e8eaf6 0%, #c5cae9 100%);
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+}
+
+.form-box.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    position: relative;
+}
+
+.logo {
+    width: 70px;
+    height: 70px;
+    margin: 0 auto 25px;
+    background: url("assets/national-university-philippines-logo-png_seeklogo-499282-removebg-preview.png") center/cover;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.welcome-text {
+    font-size: 26px;
+    font-weight: 700;
+    font-style: italic;
+    color: #4a5bb8;
+    margin-bottom: 25px;
+    line-height: 1.2;
+}
+
+.input-container {
+    background: linear-gradient(145deg, #7986cb 0%, #5c6bc0 100%);
+    border-radius: 20px;
+    padding: 25px 20px;
+    margin-bottom: 18px;
+}
+
+input[type="email"],
+input[type="password"],
+input[type="text"],
+select {
+    width: 100%;
+    padding: 12px 18px;
+    background: #f5f5f5;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    font-size: 15px;
+    color: #333;
+    margin-bottom: 12px;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="text"]:focus,
+select:focus {
+    background: #ffffff;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1), 0 0 0 3px rgba(116, 114, 195, 0.3);
+}
+
+input[type="email"]:last-child,
+input[type="password"]:last-child,
+input[type="text"]:last-child,
+select:last-child {
+    margin-bottom: 0;
+}
+
+input::placeholder {
+    color: #999;
+    font-weight: 400;
+}
+
+.forgot-password {
+    display: block;
+    color: #4a5bb8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 12px 0;
+    transition: all 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #2d3561;
+    text-decoration: underline;
+    transform: translateY(-1px);
+}
+
+.register-text {
+    color: #4a5bb8;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.register-text .register-link {
+    color: #2d3561;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.register-text .register-link:hover {
+    text-decoration: underline;
+    color: #1a1f3a;
+}
+
+.login-button {
+    width: 70%;
+    padding: 12px;
+    background: linear-gradient(145deg, #f1c40f 0%, #f39c12 100%);
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 17px;
+    color: #ffffff;
+    font-weight: 700;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(241, 196, 15, 0.4);
+}
+
+.login-button:hover {
+    background: linear-gradient(145deg, #f39c12 0%, #e67e22 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(241, 196, 15, 0.6);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+.success-message {
+    color: green; /* Green color for success messages */
+    padding: 10px;
+    background: rgba(46, 204, 113, 0.1);
+    border: 1px solid #2ecc71;
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.error-message {
+    color: #e74c3c; /* Red color for error messages */
+    padding: 10px;
+    background: rgba(231, 76, 60, 0.1);
+    border: 1px solid #e74c3c;
+    border-radius: 10px;
+    font-size: 13px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.back-link {
+    display: inline-block;
+    color: #4a5bb8;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    margin-top: 12px;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    color: #2d3561;
+    text-decoration: underline;
+    transform: translateY(-1px);
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
