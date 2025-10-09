@@ -17,9 +17,9 @@
                 <span class="logo-text">National University</span>
             </div>
             <nav class="nav-links">
-                <a href="#" class="nav-link active">HOME</a>
+                <a href="student_page.php" class="nav-link active">HOME</a>
                 <span class="nav-divider">|</span>
-                <a onclick="window.location.href='calendar.php'" class="nav-link">CALENDAR</a>
+                <a href="calendar.php" class="nav-link">CALENDAR</a>
                 <span class="nav-divider">|</span>
                 <a href="#" class="nav-link">VIEW EVENTS</a>
             </nav>
@@ -35,6 +35,19 @@
         </div>
     </header>
 
+    <div class="marquee-container">
+        <div class="marquee-content">
+            <span>🎉 Events Calendar</span>
+            <span>📚 National University</span>
+            <span>🎉 Events Calendar</span>
+            <span>📚 National University</span>
+            <span>🎉 Events Calendar</span>
+            <span>📚 National University</span>
+            <span>🎉 Events Calendar</span>
+            <span>📚 National University</span>
+        </div>
+    </div>
+
     <main class="main-content">
         <div class="content-container">
             <nav class="breadcrumb">
@@ -47,22 +60,22 @@
                 <div class="content-left">
                     <h1 class="main-heading">EVENT CALENDAR</h1>
                     <h2 class="sub-heading">National University - Laguna</h2>
-                    <p class="school-year">school year 2024–2025</p>
+                    <p class="school-year">Academic Year 2024-2025</p>
                     
                     <div class="action-section">
-                        <a href="#" class="events-link">
-                            <span class="link-text">see current events</span>
-                            <i class="fas fa-calendar-alt calendar-icon"></i>
-                        </a>
+                        <button class="see-events-btn">
+                            <span>See Current Events</span>
+                            <i class="fas fa-calendar-alt"></i>
+                        </button>
                     </div>
                 </div>
                 <div class="content-right">
                     <div class="image-container">
                         <div class="image-card image-front">
-                            <img src="assets\492508047_1000140838968339_1613408679840476886_n.jpg" alt="National University students celebrating and cheering in blue uniforms" class="event-image">
+                            <img src="assets/492508047_1000140838968339_1613408679840476886_n.jpg" alt="National University students celebrating and cheering in blue uniforms" class="event-image">
                         </div>
                         <div class="image-card image-back">
-                            <img src="assets\images.jpg" alt="National University campus event with students gathered outdoors" class="event-image">
+                            <img src="assets/images.jpg" alt="National University campus event with students gathered outdoors" class="event-image">
                         </div>
                     </div>
                 </div>
