@@ -25,7 +25,7 @@
             </nav>
 
             <div class="header-icons">
-                <button onclick="window.location.href='logout.php'" class="icon-btn user-icon">
+                <button onclick="window.location.href='logout.html'" class="icon-btn user-icon">
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <button class="icon-btn hamburger-menu">
@@ -37,14 +37,14 @@
 
     <div class="marquee-container">
         <div class="marquee-content">
-            <span>🎉 Events Calendar</span>
-            <span>📚 National University</span>
-            <span>🎉 Events Calendar</span>
-            <span>📚 National University</span>
-            <span>🎉 Events Calendar</span>
-            <span>📚 National University</span>
-            <span>🎉 Events Calendar</span>
-            <span>📚 National University</span>
+            <span> Events Calendar</span>
+            <span> National University</span>
+            <span> Events Calendar</span>
+            <span> National University</span>
+            <span> Events Calendar</span>
+            <span> National University</span>
+            <span> Events Calendar</span>
+            <span> National University</span>
         </div>
     </div>
 

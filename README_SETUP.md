@@ -95,9 +95,3 @@ The table structure includes:
 4. **Edit Event**: Click on any event in the upcoming events list
 5. **Delete Event**: Use the delete button in the edit modal
 
-## Notes
-
-- The database connection uses your existing `config.php` with XAMPP MySQL settings
-- Events are displayed in chronological order (soonest first)
-- All event operations require admin authentication
-- The marquee banner scrolls continuously across the top of the page

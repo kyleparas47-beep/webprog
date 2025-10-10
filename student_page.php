@@ -37,14 +37,14 @@
 
     <div class="marquee-container">
         <div class="marquee-content">
-            <span>🎉 Events Calendar</span>
-            <span>📚 National University</span>
-            <span>🎉 Events Calendar</span>
-            <span>📚 National University</span>
-            <span>🎉 Events Calendar</span>
-            <span>📚 National University</span>
-            <span>🎉 Events Calendar</span>
-            <span>📚 National University</span>
+            <span> Events Calendar</span>
+            <span> National University</span>
+            <span> Events Calendar</span>
+            <span> National University</span>
+            <span> Events Calendar</span>
+            <span> National University</span>
+            <span> Events Calendar</span>
+            <span> National University</span>
         </div>
     </div>
 
