@@ -63,7 +63,7 @@ if(isset($_POST['register'])) {
     }
     $checkEmail->close();
     
-    header("Location: /frontend/index.php");
+    header("Location: /index.php");
     exit();
 }
 
@@ -111,7 +111,7 @@ if (isset($_POST['login'])) {
     $_SESSION['active_form'] = 'login';
     $stmt->close();
     
-    header("Location: /frontend/index.php");
+    header("Location: /index.php");
     exit();
 }
 ?>
