@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student | Home - National University</title>
-    <link rel="stylesheet" href="/student.css">
+    <link rel="stylesheet" href="student.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
@@ -12,20 +12,20 @@
         <div class="header-container">
             <div class="logo-section">
                 <div class="logo-icon">
-                    <img src="/assets/national-university-philippines-logo-png_seeklogo-499282-removebg-preview.png" alt="National University Logo" class="logo-img">
+                    <img src="assets/national-university-philippines-logo-png_seeklogo-499282-removebg-preview.png" alt="National University Logo" class="logo-img">
                 </div>
                 <span class="logo-text">National University</span>
             </div>
             <nav class="nav-links">
-                <a href="/student_page.php" class="nav-link active">HOME</a>
+                <a href="student_page.php" class="nav-link active">HOME</a>
                 <span class="nav-divider">|</span>
-                <a href="/student_calendar.php" class="nav-link">CALENDAR</a>
+                <a href="student_calendar.php" class="nav-link">CALENDAR</a>
                 <span class="nav-divider">|</span>
                 <a href="#" class="nav-link">VIEW EVENTS</a>
             </nav>
 
             <div class="header-icons">
-                <button onclick="window.location.href="/logout.html"" class="icon-btn user-icon">
+                <button onclick="window.location.href="logout.html"" class="icon-btn user-icon">
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <button class="icon-btn hamburger-menu">
@@ -72,10 +72,10 @@
                 <div class="content-right">
                     <div class="image-container">
                         <div class="image-card image-front">
-                            <img src="/assets/492508047_1000140838968339_1613408679840476886_n.jpg" alt="National University students celebrating and cheering in blue uniforms" class="event-image">
+                            <img src="assets/492508047_1000140838968339_1613408679840476886_n.jpg" alt="National University students celebrating and cheering in blue uniforms" class="event-image">
                         </div>
                         <div class="image-card image-back">
-                            <img src="/assets/images.jpg" alt="National University campus event with students gathered outdoors" class="event-image">
+                            <img src="assets/images.jpg" alt="National University campus event with students gathered outdoors" class="event-image">
                         </div>
                     </div>
                 </div>

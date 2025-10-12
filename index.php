@@ -30,14 +30,14 @@ function isActiveForm($formName, $activeForm){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NUEvents - Login</title>
-    <link rel="stylesheet" href="/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     
     <div class="container">
         <div class="form-box 
         <?= isActiveForm('login', $activeForm); ?>" id="login-form">
-            <form action="/login_register.php" method="post">
+            <form action="login_register.php" method="post">
                 <div class="logo"></div>
                 <h2 class="welcome-text">Welcome,<br>Nationalian!</h2>
                 <?= showError($errors['login']); ?>
@@ -56,7 +56,7 @@ function isActiveForm($formName, $activeForm){
         </div>
         <div class="form-box 
         <?= isActiveForm('register', $activeForm); ?>" id="register-form">
-            <form action="/login_register.php" method="post">
+            <form action="login_register.php" method="post">
                 <div class="logo"></div>
                 <h2 class="welcome-text">Register to<br>NUsync</h2>
                 <?= showError($errors['register']); ?>
@@ -79,7 +79,7 @@ function isActiveForm($formName, $activeForm){
         </div>
         <div class="form-box 
         <?= isActiveForm('forgot_password', $activeForm); ?>" id="forgot-password-form">
-            <form action="/forgot_password.php" method="post">
+            <form action="forgot_password.php" method="post">
                 <div class="logo"></div>
                 <h2 class="welcome-text">Reset Your<br>Password</h2>
                 <?= showError($errors['forgot_password']); ?>
@@ -96,6 +96,6 @@ function isActiveForm($formName, $activeForm){
         </div>
     </div>
 
-    <script src="/script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

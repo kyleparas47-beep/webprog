@@ -14,19 +14,19 @@ if (isset($_POST['reset_password'])) {
 
     if (empty($newPassword) || empty($confirmPassword)) {
         $_SESSION['reset_error'] = 'Both password fields are required!';
-        header("Location: /reset_password.php?token=" . urlencode($token));
+        header("Location: reset_password.php?token=" . urlencode($token));
         exit();
     }
 
     if (strlen($newPassword) < 6) {
         $_SESSION['reset_error'] = 'Password must be at least 6 characters long!';
-        header("Location: /reset_password.php?token=" . urlencode($token));
+        header("Location: reset_password.php?token=" . urlencode($token));
         exit();
     }
 
     if ($newPassword !== $confirmPassword) {
         $_SESSION['reset_error'] = 'Passwords do not match!';
-        header("Location: /reset_password.php?token=" . urlencode($token));
+        header("Location: reset_password.php?token=" . urlencode($token));
         exit();
     }
 
@@ -51,15 +51,15 @@ if (isset($_POST['reset_password'])) {
             
             $_SESSION['login_error'] = 'Password reset successful! Please login with your new password.';
             $_SESSION['active_form'] = 'login';
-            header("Location: /index.php");
+            header("Location: index.php");
         } else {
             $_SESSION['reset_error'] = 'Failed to update password. Please try again.';
-            header("Location: /reset_password.php?token=" . urlencode($token));
+            header("Location: reset_password.php?token=" . urlencode($token));
         }
         $updateStmt->close();
     } else {
         $_SESSION['reset_error'] = 'Invalid or expired token!';
-        header("Location: /reset_password.php?token=" . urlencode($token));
+        header("Location: reset_password.php?token=" . urlencode($token));
     }
     $stmt->close();
     exit();
