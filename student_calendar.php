@@ -289,14 +289,20 @@ $student_name = $_SESSION['name'];
                     if (data.success) {
                         allEvents = data.events.map(event => ({
                             ...event,
-                            start: new Date(event.start_date),
-                            end: new Date(event.end_date)
+                            start: parseApiDate(event.start_date),
+                            end: parseApiDate(event.end_date)
                         }));
                         renderCalendar();
                         displayUpcomingEvents();
                     }
                 })
                 .catch(error => console.error('Error loading events:', error));
+        }
+
+        function parseApiDate(value) {
+            if (!value) return null;
+            const str = typeof value === 'string' ? value.replace(' ', 'T') : value;
+            return new Date(str);
         }
 
         function loadRegisteredEvents() {
