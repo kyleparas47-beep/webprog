@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . 'config.php';
+require_once __DIR__ . '/config.php';
 
 $token = $_GET['token'] ?? '';
 $error = $_SESSION['reset_error'] ?? '';
@@ -49,7 +49,7 @@ if (!empty($token)) {
     <div class="container">
         <div class="form-box active">
             <?php if ($validToken): ?>
-                <form action="reset_password_handler.php" method="post">
+                <form action="reset_passwordhandler.php" method="post">
                     <div class="logo"></div>
                     <h2 class="welcome-text">Reset Your<br>Password</h2>
                     <?= showError($error); ?>
