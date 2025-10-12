@@ -1,10 +1,11 @@
 <?php
 session_start();
-require_once __DIR__ . 'config.php';
+require_once __DIR__ . '/config.php';
 
-$token = $_GET['token'] ?? '';
 $error = $_SESSION['reset_error'] ?? '';
 $success = $_SESSION['reset_success'] ?? '';
+$email = $_SESSION['verified_email'] ?? '';
+$userId = $_SESSION['verified_user_id'] ?? null;
 
 unset($_SESSION['reset_error'], $_SESSION['reset_success']);
 
@@ -20,20 +21,10 @@ function showSuccess($message) {
     return !empty($message) ? "<p class='success-message'>$message</p>" : '';
 }
 
-$validToken = false;
-$userId = null;
-
-if (!empty($token)) {
-    $stmt = $conn->prepare("SELECT user_id FROM password_resets WHERE token = ? AND expires_at > NOW()");
-    $stmt->bind_param("s", $token);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    
-    if ($result->num_rows > 0) {
-        $validToken = true;
-        $userId = $result->fetch_assoc()['user_id'];
-    }
-    $stmt->close();
+// Check if user is verified (came from code verification)
+if (empty($userId) || empty($email)) {
+    header("Location: index.php");
+    exit();
 }
 ?>
 
@@ -48,30 +39,27 @@ if (!empty($token)) {
 <body>
     <div class="container">
         <div class="form-box active">
-            <?php if ($validToken): ?>
-                <form action="reset_password_handler.php" method="post">
-                    <div class="logo"></div>
-                    <h2 class="welcome-text">Reset Your<br>Password</h2>
-                    <?= showError($error); ?>
-                    <?= showSuccess($success); ?>
-                    
-                    <div class="input-container">
-                        <input type="password" name="new_password" placeholder="New Password" required minlength="6">
-                        <input type="password" name="confirm_password" placeholder="Confirm Password" required minlength="6">
-                    </div>
-                    
-                    <input type="hidden" name="token" value="<?= htmlspecialchars($token); ?>">
-                    
-                    <button type="submit" name="reset_password" class="login-button">Reset Password</button>
-                    
-                    <a href="index.php" class="back-link">Back to Login</a>
-                </form>
-            <?php else: ?>
+            <form action="reset_passwordhandler.php" method="post">
                 <div class="logo"></div>
-                <h2 class="welcome-text">Invalid or<br>Expired Link</h2>
-                <p class="error-message">This password reset link is invalid or has expired. Please request a new one.</p>
+                <h2 class="welcome-text">Reset Your<br>Password</h2>
+                <?= showError($error); ?>
+                <?= showSuccess($success); ?>
+                
+                <div class="email-display" style="background: #f5f5f5; padding: 10px; border-radius: 5px; margin: 10px 0; text-align: center; color: #666;">
+                    Resetting password for: <strong><?= htmlspecialchars($email); ?></strong>
+                </div>
+                
+                <div class="input-container">
+                    <input type="password" name="new_password" placeholder="New Password" required minlength="6">
+                    <input type="password" name="confirm_password" placeholder="Confirm Password" required minlength="6">
+                </div>
+                
+                <input type="hidden" name="user_id" value="<?= htmlspecialchars($userId); ?>">
+                
+                <button type="submit" name="reset_password" class="login-button">Reset Password</button>
+                
                 <a href="index.php" class="back-link">Back to Login</a>
-            <?php endif; ?>
+            </form>
         </div>
     </div>
 </body>

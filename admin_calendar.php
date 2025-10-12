@@ -78,7 +78,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             </nav>
 
             <div class="header-icons">
-                <button onclick="window.location.href='logout.php'" class="icon-btn user-icon">
+                <button onclick="showProfileMenu()" class="icon-btn user-icon">
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <button class="icon-btn hamburger-menu">
@@ -192,6 +192,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         </div>
     </div>
 
+    <?php include 'profile_menu.php'; ?>
     <script src="calendar_admin.js"></script>
 </body>
 </html>

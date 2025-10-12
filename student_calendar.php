@@ -168,7 +168,7 @@ $student_name = $_SESSION['name'];
             </nav>
 
             <div class="header-icons">
-                <button onclick="window.location.href='logout.php'" class="icon-btn user-icon">
+                <button onclick="showProfileMenu()" class="icon-btn user-icon">
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <button class="icon-btn hamburger-menu">
@@ -252,6 +252,7 @@ $student_name = $_SESSION['name'];
         </div>
     </div>
 
+    <?php include 'profile_menu.php'; ?>
     <script src="calendar_functions.js"></script>
     <script>
         const studentId = <?php echo $student_id; ?>;

@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header("Location: index.php");
+    exit();
+}
+
+$user_name = $_SESSION['name'] ?? 'User';
+$user_email = $_SESSION['email'] ?? '';
+$user_role = $_SESSION['role'] ?? '';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -132,10 +143,11 @@
             <h2>Profile Information</h2>
         </header>
         <div class="profile-info">
-            <img class="avatar" src="https://randomuser.me/api/portraits/men/76.jpg" alt="Avatar of Dela Cruz, Juan" />
+            <img class="avatar" src="https://ui-avatars.com/api/?name=<?= urlencode($user_name) ?>&background=1976d2&color=fff&size=90" alt="Avatar of <?= htmlspecialchars($user_name) ?>" />
             <div class="user-details">
-                <div class="name">Dela Cruz, Juan</div>
-                <div class="email">1delacruz@gmail.com</div>
+                <div class="name"><?= htmlspecialchars($user_name) ?></div>
+                <div class="email"><?= htmlspecialchars($user_email) ?></div>
+                <div class="role" style="font-size: 12px; color: #7a7c90; margin-top: 5px; text-transform: uppercase; font-weight: 600;"><?= htmlspecialchars($user_role) ?></div>
             </div>
         </div>
         <div class="update-item" onclick="updateName()">
@@ -161,7 +173,11 @@
             // Add smooth transition out effect
             document.querySelector('.profile-container').style.opacity = 0;
             setTimeout(() => {
-                window.history.back();
+                <?php if ($user_role === 'admin'): ?>
+                    window.location.href = 'admin_page.php';
+                <?php else: ?>
+                    window.location.href = 'student_page.php';
+                <?php endif; ?>
             }, 500); // Match the transition duration
         }
 

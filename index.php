@@ -17,7 +17,7 @@ function showError($error) {
     return !empty($error) ? "<p class='error-message'>$error</p>" : '';
 }
 function showSuccess($message) {
-    return !empty($message) ? "<p class='success-message'>$message</p>" : '';
+    return !empty($message) ? "<div class='success-message'>$message</div>" : '';
 }
 function isActiveForm($formName, $activeForm){
     return $formName === $activeForm ? 'active' : '';
