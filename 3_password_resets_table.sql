@@ -2,7 +2,7 @@
 -- NUEvents - Password Resets Table
 -- ============================================
 -- This table is required for the "Forgot Password" functionality
--- Import Order: Import this file AFTER student_table.sql
+-- Import Order: Import this file AFTER 1_student_table.sql
 -- Requires: student table must exist (foreign key dependency)
 
 CREATE TABLE IF NOT EXISTS `password_resets` (
@@ -17,9 +17,6 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
   KEY `expires_at` (`expires_at`),
   FOREIGN KEY (`user_id`) REFERENCES `student` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Create indexes for better performance
-CREATE INDEX IF NOT EXISTS `idx_password_resets_token` ON `password_resets` (`token`, `expires_at`);
 
 -- ============================================
 -- How it works:

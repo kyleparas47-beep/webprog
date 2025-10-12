@@ -2,7 +2,7 @@
 -- NUEvents - Event Registrations Table
 -- ============================================
 -- This table enables students to pre-register for events
--- Import Order: Import this file LAST (after student and events tables)
+-- Import Order: Import this file LAST (after 1, 2, and 3)
 -- Requires: student and events tables must exist (foreign key dependencies)
 
 CREATE TABLE IF NOT EXISTS `event_registrations` (
@@ -17,9 +17,6 @@ CREATE TABLE IF NOT EXISTS `event_registrations` (
   FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE,
   FOREIGN KEY (`event_id`) REFERENCES `events` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Create index for better performance
-CREATE INDEX IF NOT EXISTS `idx_registrations_student` ON `event_registrations` (`student_id`);
 
 -- ============================================
 -- How it works:

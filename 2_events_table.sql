@@ -2,7 +2,7 @@
 -- NUEvents - Events Table
 -- ============================================
 -- This table stores all event information
--- Import Order: Import this file AFTER student_table.sql
+-- Import Order: Import this file AFTER 1_student_table.sql
 -- Requires: student table must exist (foreign key dependency)
 
 CREATE TABLE IF NOT EXISTS `events` (
@@ -21,6 +21,3 @@ CREATE TABLE IF NOT EXISTS `events` (
   KEY `event_type` (`event_type`),
   FOREIGN KEY (`created_by`) REFERENCES `student` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- Create indexes for better performance
-CREATE INDEX IF NOT EXISTS `idx_events_dates` ON `events` (`start_date`, `end_date`);

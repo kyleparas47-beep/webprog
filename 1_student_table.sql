@@ -16,9 +16,6 @@ CREATE TABLE IF NOT EXISTS `student` (
   KEY `role` (`role`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
--- Create index for faster email lookups (used during login)
-CREATE INDEX IF NOT EXISTS `idx_student_email` ON `student` (`email`);
-
 -- ============================================
 -- Default Admin Account
 -- ============================================
