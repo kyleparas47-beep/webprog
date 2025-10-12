@@ -168,7 +168,7 @@ $student_name = $_SESSION['name'];
             </nav>
 
             <div class="header-icons">
-                <button onclick="window.location.href="logout.php"" class="icon-btn user-icon">
+                <button onclick="window.location.href='logout.php'" class="icon-btn user-icon">
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <button class="icon-btn hamburger-menu">
@@ -252,6 +252,7 @@ $student_name = $_SESSION['name'];
         </div>
     </div>
 
+    <script src="calendar_functions.js"></script>
     <script>
         const studentId = <?php echo $student_id; ?>;
         let currentDate = new Date();
@@ -397,8 +398,8 @@ $student_name = $_SESSION['name'];
             document.getElementById('eventViewModal').style.display = 'none';
         }
 
-        // Include all the calendar rendering functions from calendar_admin.js
-        <?php include 'calendar_functions.js'; ?>
+        // Include all the calendar rendering functions from calendar_functions.js
+        // The functions are already included above in the script
     </script>
 </body>
 </html>
