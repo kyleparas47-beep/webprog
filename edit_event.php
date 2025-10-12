@@ -23,6 +23,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
     
+    // Normalize and validate date/time inputs from datetime-local
+    $normalize_datetime = function ($value) {
+        $value = trim((string)$value);
+        if ($value === '') return '';
+        $value = str_replace('T', ' ', $value);
+        if (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/', $value)) {
+            $value .= ':00';
+        }
+        return $value;
+    };
+
+    $start_date = $normalize_datetime($start_date);
+    $end_date = $normalize_datetime($end_date);
+
+    try {
+        $start_dt = new DateTime($start_date);
+        $end_dt = new DateTime($end_date);
+        if ($end_dt <= $start_dt) {
+            echo json_encode(['success' => false, 'message' => 'End date/time must be after start date/time']);
+            exit();
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Invalid date/time format']);
+        exit();
+    }
+
+    $allowed_types = ['Events', 'Webinar', 'Seminars', 'Workshop'];
+    if (!in_array($event_type, $allowed_types, true)) {
+        $event_type = 'Events';
+    }
+
     $stmt = $conn->prepare("UPDATE events SET title = ?, description = ?, event_type = ?, start_date = ?, end_date = ?, location = ? WHERE id = ?");
     $stmt->bind_param("ssssssi", $title, $description, $event_type, $start_date, $end_date, $location, $event_id);
     
