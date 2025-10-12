@@ -1,48 +1,3 @@
-let currentDate = new Date();
-let currentView = 'week';
-let allEvents = [];
-let currentEventId = null;
-let filteredEventType = 'all';
-
-const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-const DAYS_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
-document.addEventListener('DOMContentLoaded', function() {
-    loadEvents();
-    renderCalendar();
-    updateMiniCalendar();
-    setupEventListeners();
-});
-
-function setupEventListeners() {
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            filteredEventType = this.dataset.filter;
-            renderCalendar();
-        });
-    });
-}
-
-function loadEvents() {
-    fetch('get_events.php')
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                allEvents = data.events.map(event => ({
-                    ...event,
-                    start: new Date(event.start_date),
-                    end: new Date(event.end_date)
-                }));
-                renderCalendar();
-                displayUpcomingEvents();
-            }
-        })
-        .catch(error => console.error('Error loading events:', error));
-}
-
 function renderCalendar() {
     switch(currentView) {
         case 'month':
@@ -84,7 +39,7 @@ function renderMonthView() {
         
         dayEvents.slice(0, 3).forEach(event => {
             html += `<div class="month-event ${event.event_type.toLowerCase()}" 
-                         onclick="event.stopPropagation(); editEvent(${event.id})">
+                         onclick="event.stopPropagation(); viewEventDetails(${event.id})">
                         ${event.title}
                      </div>`;
         });
@@ -129,7 +84,7 @@ function renderWeekView() {
     for (let i = 0; i < 7; i++) {
         const day = new Date(startOfWeek);
         day.setDate(startOfWeek.getDate() + i);
-        html += `<div class="week-day-column" data-date="${day.toISOString()}" onclick="createEventAtTime(event, this)">`;
+        html += `<div class="week-day-column" data-date="${day.toISOString()}">`;
         
         for (let hour = 0; hour < 24; hour++) {
             html += `<div class="time-slot" data-hour="${hour}"></div>`;
@@ -141,7 +96,7 @@ function renderWeekView() {
             if (position) {
                 html += `<div class="week-event ${event.event_type.toLowerCase()}" 
                              style="top: ${position.top}px; height: ${position.height}px;"
-                             onclick="event.stopPropagation(); editEvent(${event.id})">
+                             onclick="viewEventDetails(${event.id})">
                             <div class="week-event-title">${event.title}</div>
                             <div class="week-event-time">${formatTime(event.start)} - ${formatTime(event.end)}</div>
                          </div>`;
@@ -167,7 +122,7 @@ function renderDayView() {
     }
     html += '</div>';
     
-    html += `<div class="day-column" data-date="${currentDate.toISOString()}" onclick="createEventAtTime(event, this)">`;
+    html += `<div class="day-column" data-date="${currentDate.toISOString()}">`;
     for (let hour = 0; hour < 24; hour++) {
         html += `<div class="time-slot" data-hour="${hour}"></div>`;
     }
@@ -178,7 +133,7 @@ function renderDayView() {
         if (position) {
             html += `<div class="day-event ${event.event_type.toLowerCase()}" 
                          style="top: ${position.top}px; height: ${position.height}px;"
-                         onclick="event.stopPropagation(); editEvent(${event.id})">
+                         onclick="viewEventDetails(${event.id})">
                         <div class="day-event-title">${event.title}</div>
                         <div class="day-event-time">${formatTime(event.start)} - ${formatTime(event.end)}</div>
                         <div class="day-event-location">${event.location || ''}</div>
@@ -291,114 +246,6 @@ function selectDate(dateStr) {
     renderCalendar();
 }
 
-function createEventAtTime(e, element) {
-    const clickY = e.offsetY;
-    const hourHeight = 60;
-    const hour = Math.floor(clickY / hourHeight);
-    const date = new Date(element.dataset.date);
-    date.setHours(hour, 0, 0, 0);
-    
-    openEventModal(null, null, date);
-}
-
-function openEventModal(eventId = null, eventData = null, defaultStartDate = null) {
-    const modal = document.getElementById('eventModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const deleteBtn = document.getElementById('deleteBtn');
-    
-    if (eventId && eventData) {
-        modalTitle.textContent = 'Edit Event';
-        document.getElementById('eventId').value = eventId;
-        document.getElementById('eventTitle').value = eventData.title;
-        document.getElementById('eventDescription').value = eventData.description;
-        document.getElementById('eventType').value = eventData.event_type;
-        document.getElementById('startDate').value = formatDateTimeLocal(new Date(eventData.start_date));
-        document.getElementById('endDate').value = formatDateTimeLocal(new Date(eventData.end_date));
-        document.getElementById('location').value = eventData.location;
-        deleteBtn.style.display = 'block';
-        currentEventId = eventId;
-    } else {
-        modalTitle.textContent = 'Create Event';
-        document.getElementById('eventForm').reset();
-        document.getElementById('eventId').value = '';
-        deleteBtn.style.display = 'none';
-        currentEventId = null;
-        
-        if (defaultStartDate) {
-            const endDate = new Date(defaultStartDate);
-            endDate.setHours(endDate.getHours() + 1);
-            document.getElementById('startDate').value = formatDateTimeLocal(defaultStartDate);
-            document.getElementById('endDate').value = formatDateTimeLocal(endDate);
-        }
-    }
-    
-    modal.style.display = 'block';
-}
-
-function editEvent(eventId) {
-    const event = allEvents.find(e => e.id == eventId);
-    if (event) {
-        openEventModal(eventId, event);
-    }
-}
-
-function closeEventModal() {
-    document.getElementById('eventModal').style.display = 'none';
-    document.getElementById('eventForm').reset();
-    currentEventId = null;
-}
-
-function saveEvent(event) {
-    event.preventDefault();
-    
-    const formData = new FormData(event.target);
-    const eventId = formData.get('event_id');
-    const url = eventId ? 'edit_event.php' : 'add_event.php';
-    
-    fetch(url, {
-        method: 'POST',
-        body: formData
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            closeEventModal();
-            loadEvents();
-        } else {
-            alert('Error: ' + (data.message || 'Failed to save event'));
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while saving the event');
-    });
-    
-    return false;
-}
-
-function deleteEvent() {
-    if (!currentEventId || !confirm('Are you sure you want to delete this event?')) return;
-    
-    fetch('delete_event.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: 'event_id=' + currentEventId
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            closeEventModal();
-            loadEvents();
-        } else {
-            alert('Error: ' + (data.message || 'Failed to delete event'));
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('An error occurred while deleting the event');
-    });
-}
-
 function searchEvents() {
     const searchTerm = document.getElementById('searchEventsInput').value.toLowerCase();
     if (!searchTerm) {
@@ -426,7 +273,7 @@ function displayUpcomingEvents() {
         .slice(0, 5);
     
     upcoming.forEach(event => {
-        html += `<div class="event-item" onclick="editEvent(${event.id})">
+        html += `<div class="event-item" onclick="viewEventDetails(${event.id})" style="cursor: pointer;">
                     <div class="event-color-bar ${event.event_type.toLowerCase()}"></div>
                     <div class="event-details">
                         <p class="event-title">${event.title}</p>
@@ -496,51 +343,4 @@ function formatTime(date) {
 function formatEventDate(date) {
     const d = new Date(date);
     return `${MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`;
-}
-
-function formatDateTimeLocal(date) {
-    const d = new Date(date);
-    const year = d.getFullYear();
-    const month = String(d.getMonth() + 1).padStart(2, '0');
-    const day = String(d.getDate()).padStart(2, '0');
-    const hours = String(d.getHours()).padStart(2, '0');
-    const minutes = String(d.getMinutes()).padStart(2, '0');
-    return `${year}-${month}-${day}T${hours}:${minutes}`;
-}
-
-window.onclick = function(event) {
-    if (event.target.id === 'eventModal') {
-        closeEventModal();
-    }
-}
-
-function saveUpdates() {
-    loadEvents();
-    alert('✅ Calendar updates saved successfully!\n\nAll changes have been synchronized to the database.');
-}
-
-function updateUniversityCalendar() {
-    const confirmUpdate = confirm('This will synchronize all events to the university calendar and make them visible to students.\n\nContinue?');
-    if (!confirmUpdate) return;
-    
-    fetch('update_university_calendar.php', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ action: 'sync', timestamp: new Date().toISOString() })
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.success) {
-            alert('✅ University Calendar Updated Successfully!\n\n' + 
-                  `${data.events_count} event(s) synchronized and now visible to students.\n` +
-                  'Students can now pre-register for these events.');
-            loadEvents();
-        } else {
-            alert('❌ Error: ' + (data.message || 'Failed to update calendar'));
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-        alert('❌ An error occurred while updating the calendar');
-    });
 }

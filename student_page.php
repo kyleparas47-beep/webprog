@@ -19,7 +19,7 @@
             <nav class="nav-links">
                 <a href="student_page.php" class="nav-link active">HOME</a>
                 <span class="nav-divider">|</span>
-                <a href="calendar.php" class="nav-link">CALENDAR</a>
+                <a href="student_calendar.php" class="nav-link">CALENDAR</a>
                 <span class="nav-divider">|</span>
                 <a href="#" class="nav-link">VIEW EVENTS</a>
             </nav>

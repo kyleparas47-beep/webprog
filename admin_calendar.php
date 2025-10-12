@@ -14,6 +14,51 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     <link rel="stylesheet" href="student.css">
     <link rel="stylesheet" href="calendar_admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .calendar-action-buttons {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 12px;
+            z-index: 1000;
+        }
+        
+        .btn-save-updates, .btn-update-calendar {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .btn-save-updates {
+            background: #1976d2;
+            color: white;
+        }
+        
+        .btn-save-updates:hover {
+            background: #1565c0;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+        
+        .btn-update-calendar {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .btn-update-calendar:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+        }
+    </style>
 </head>
 <body>
     <header class="header">
@@ -95,6 +140,15 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 
             <div class="calendar-content">
                 <!-- Calendar will be rendered here by JavaScript -->
+            </div>
+
+            <div class="calendar-action-buttons">
+                <button class="btn-save-updates" onclick="saveUpdates()">
+                    <i class="fas fa-save"></i> SAVE UPDATES
+                </button>
+                <button class="btn-update-calendar" onclick="updateUniversityCalendar()">
+                    <i class="fas fa-sync-alt"></i> UPDATE UNIVERSITY CALENDAR
+                </button>
             </div>
         </main>
     </div>
