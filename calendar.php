@@ -15,7 +15,7 @@
             </div>
         </div>
         <nav class="header-nav">
-            <a onclick="window.location.href='/student_page.php'" class="nav-link">HOME</a>
+            <a onclick="window.location.href='student_page.php'" class="nav-link">HOME</a>
             <span class="nav-separator">|</span>
             <a href="#" class="nav-link active">CALENDAR</a>
             <span class="nav-separator">|</span>

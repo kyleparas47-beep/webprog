@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../config.php';
+require_once __DIR__ . 'config.php';
 
 $token = $_GET['token'] ?? '';
 $error = $_SESSION['reset_error'] ?? '';
