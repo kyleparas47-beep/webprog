@@ -27,7 +27,7 @@ function setupEventListeners() {
 }
 
 function loadEvents() {
-    fetch('get_events.php')
+    fetch('/backend/get_events.php')
         .then(response => response.json())
         .then(data => {
             if (data.success) {
@@ -379,7 +379,7 @@ function saveEvent(event) {
 function deleteEvent() {
     if (!currentEventId || !confirm('Are you sure you want to delete this event?')) return;
     
-    fetch('delete_event.php', {
+    fetch('/backend/delete_event.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: 'event_id=' + currentEventId
@@ -523,7 +523,7 @@ function updateUniversityCalendar() {
     const confirmUpdate = confirm('This will synchronize all events to the university calendar and make them visible to students.\n\nContinue?');
     if (!confirmUpdate) return;
     
-    fetch('update_university_calendar.php', {
+    fetch('/backend/update_university_calendar.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ action: 'sync', timestamp: new Date().toISOString() })

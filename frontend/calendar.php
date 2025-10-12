@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>University Schedule - Events Calendar</title>
-    <link rel="stylesheet" href="stylescal.css">
+    <link rel="stylesheet" href="/frontend/stylescal.css">
 </head>
 <body>
     <header class="main-header">
@@ -15,7 +15,7 @@
             </div>
         </div>
         <nav class="header-nav">
-            <a onclick="window.location.href='student_page.php'" class="nav-link">HOME</a>
+            <a onclick="window.location.href='/frontend/student_page.php'" class="nav-link">HOME</a>
             <span class="nav-separator">|</span>
             <a href="#" class="nav-link active">CALENDAR</a>
             <span class="nav-separator">|</span>
@@ -182,6 +182,6 @@
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="/frontend/script.js"></script>
 </body>
 </html>

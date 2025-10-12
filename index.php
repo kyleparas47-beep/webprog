@@ -1,3 +1,4 @@
 <?php
-require_once __DIR__ . '/frontend/index.php';
+header('Location: /frontend/index.php');
+exit();
 ?>

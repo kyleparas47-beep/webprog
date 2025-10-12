@@ -315,7 +315,7 @@ async function handleFormSubmit(e) {
     };
     
     try {
-        const response = await fetch('api.php', {
+        const response = await fetch('/backend/api.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -340,7 +340,7 @@ async function handleFormSubmit(e) {
 
 async function loadEvents() {
     try {
-        const response = await fetch('api.php?action=get');
+        const response = await fetch('/backend/api.php?action=get');
         const result = await response.json();
         
         if (result.success) {
@@ -359,7 +359,7 @@ async function deleteEvent(eventId) {
     }
     
     try {
-        const response = await fetch('api.php', {
+        const response = await fetch('/backend/api.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

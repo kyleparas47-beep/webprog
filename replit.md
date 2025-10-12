@@ -4,13 +4,39 @@
 NUEvents (NUsync) is a PHP-based web application for managing student events at National University. It provides user authentication, event management, calendar functionality, and student pre-registration for both students and administrators.
 
 ## Project Structure
-- **Frontend**: PHP-based UI with HTML/CSS/JavaScript
-- **Backend**: PHP with MySQL database (user-managed)
-- **Server**: PHP built-in development server on port 5000
+
+### Directory Organization
+```
+├── frontend/                  # Frontend files (pages, UI, assets)
+│   ├── assets/               # Images and static resources
+│   ├── *.php                 # User-facing pages
+│   ├── *.css                 # Stylesheets
+│   └── *.js                  # JavaScript files
+├── backend/                   # Backend files (API, handlers, config)
+│   ├── config.php            # Database configuration
+│   ├── *_handler.php         # Request handlers
+│   └── *.php                 # API endpoints
+├── index.php                  # Root entry point (redirects to frontend)
+├── *.sql                     # Database setup scripts
+└── *.md                      # Documentation
+```
+
+### Frontend Files (`/frontend/`)
+- **Pages**: index.php, student_page.php, admin_page.php, student_calendar.php, admin_calendar.php, MyProfilePage.php, reset_password.php, calendar.php, logout.html
+- **Styles**: style.css, student.css, calendar_admin.css, stylescal.css, logout.css
+- **Scripts**: script.js, scriptcal.js, calendar_admin.js, calendar_functions.js
+- **Assets**: Images and logos in `/frontend/assets/`
+
+### Backend Files (`/backend/`)
+- **Configuration**: config.php
+- **Authentication**: login_register.php, forgot_password.php, reset_passwordhandler.php, logout.php
+- **Event Management**: add_event.php, edit_event.php, delete_event.php, get_events.php
+- **Student Features**: register_event.php, get_registered_events.php
+- **Admin Features**: update_university_calendar.php
 
 ## Key Features
 - User registration and authentication (students and admins)
-- Password reset functionality
+- **Forgot Password** functionality with secure token-based reset
 - Event creation, editing, and deletion (admin)
 - **Student Calendar**: View-only calendar with pre-registration functionality
 - **Admin Calendar**: Full calendar management with create, edit, delete capabilities
@@ -22,48 +48,30 @@ NUEvents (NUsync) is a PHP-based web application for managing student events at 
 The application uses MySQL with the following tables:
 
 ### Core Tables
-- `student`: User accounts (id, name, email, password, role)
-- `events`: Event information (id, title, description, event_type, start_date, end_date, location, created_by)
-- `password_resets`: Password reset tokens (user_id, token, expires_at)
-
-### New Table (Required)
+- `student`: User accounts (id, name, email, password, role, created_at)
+- `events`: Event information (id, title, description, event_type, start_date, end_date, location, created_by, created_at)
+- `password_resets`: Password reset tokens (id, user_id, token, expires_at, created_at)
 - `event_registrations`: Student event pre-registrations (id, student_id, event_id, registered_at)
 
-**Important**: Run the `event_registrations_table.sql` script in your MySQL database to create the registrations table.
+## Database Setup
 
-**Note**: Database setup and management is handled externally by the project owner.
+### Quick Setup (Recommended)
+Run the complete database setup script:
+```bash
+mysql -u your_username -p your_database_name < complete_database_setup.sql
+```
 
-## File Structure
-```
-├── index.php                      # Login/Register page
-├── login_register.php             # Authentication handler
-├── student_page.php               # Student dashboard
-├── admin_page.php                 # Admin dashboard
-├── student_calendar.php           # Student calendar with pre-registration (NEW)
-├── calendar.php                   # Legacy calendar page
-├── admin_calendar.php             # Admin calendar with management tools
-├── MyProfilePage.php              # User profile page
-├── forgot_password.php            # Password reset request
-├── reset_password.php             # Password reset form
-├── reset_passwordhandler.php      # Password reset handler
-├── add_event.php                  # Add event handler
-├── edit_event.php                 # Edit event handler
-├── delete_event.php               # Delete event handler
-├── get_events.php                 # Event data API
-├── register_event.php             # Student registration handler (NEW)
-├── get_registered_events.php      # Get student registrations (NEW)
-├── update_university_calendar.php # Admin calendar update handler (NEW)
-├── config.php                     # Database configuration
-├── calendar_admin.js              # Admin calendar JavaScript
-├── calendar_functions.js          # Shared calendar rendering functions (NEW)
-├── event_registrations_table.sql  # SQL script for registrations table (NEW)
-├── assets/                        # Images and resources
-└── *.css, *.js                    # Stylesheets and scripts
-```
+### Individual Tables
+- `student_table.sql` - User accounts table
+- `database_setup.sql` - Events table only
+- `password_resets_table.sql` - Forgot password functionality
+- `event_registrations_table.sql` - Student pre-registration
+
+**See `DATABASE_SETUP_INSTRUCTIONS.md` for detailed setup guide.**
 
 ## Calendar System
 
-### Student Calendar (`student_calendar.php`)
+### Student Calendar (`/frontend/student_calendar.php`)
 - **View Events**: Students can view all events added by admins
 - **Pre-Registration**: Click on any event to pre-register
 - **Success Popup**: Shows confirmation message upon successful registration
@@ -71,18 +79,25 @@ The application uses MySQL with the following tables:
 - **Search & Filter**: Search events by keyword, filter by type (Webinar, Seminars, Workshop)
 - **Multiple Views**: Day, Week, and Month calendar views
 
-### Admin Calendar (`admin_calendar.php`)
+### Admin Calendar (`/frontend/admin_calendar.php`)
 - **Full Management**: Create, edit, and delete events
-- **Save Updates Button**: Saves current calendar state (bottom right)
-- **Update University Calendar Button**: Publishes events to student calendar (bottom right)
+- **Save Updates Button**: Refreshes calendar state (bottom right)
+- **Update University Calendar Button**: Synchronizes events to student calendar (bottom right)
 - **Event Types**: Events, Webinar, Seminars, Workshop
 - **Calendar Views**: Day, Week, and Month views
 
 ## Running the Application
-The PHP server is configured to run on port 5000 with the command:
+The PHP server is configured to run on port 5000:
 ```bash
 php -S 0.0.0.0:5000
 ```
+
+Access at: `http://your-domain:5000`
+
+## Default Admin Account
+**Email:** admin@nu.edu.ph  
+**Password:** admin123  
+⚠️ **Change this password after first login!**
 
 ## Deployment
 Configured for VM deployment to maintain session state and database connections.
@@ -90,13 +105,12 @@ Configured for VM deployment to maintain session state and database connections.
 ## Setup Instructions
 
 ### 1. Database Setup
-Run the following SQL script in your MySQL database:
 ```bash
-mysql -u your_username -p your_database < event_registrations_table.sql
+mysql -u your_username -p your_database_name < complete_database_setup.sql
 ```
 
 ### 2. Configure Database Connection
-Update `config.php` with your MySQL credentials:
+Update `/backend/config.php`:
 ```php
 $host = "your_host";
 $user = "your_username";
@@ -105,20 +119,32 @@ $database = "your_database_name";
 ```
 
 ### 3. Access the Application
-- **Students**: Login → Navigate to CALENDAR → Pre-register for events
-- **Admins**: Login → Navigate to CALENDAR → Create/manage events → Click "UPDATE UNIVERSITY CALENDAR" to publish
+- **Students**: Login → CALENDAR → Pre-register for events
+- **Admins**: Login (admin@nu.edu.ph/admin123) → CALENDAR → Manage events
+
+## URL Structure
+
+### Frontend Pages
+- `/` → `/frontend/index.php` - Login/Register
+- `/frontend/student_page.php` - Student Dashboard
+- `/frontend/admin_page.php` - Admin Dashboard
+- `/frontend/student_calendar.php` - Student Calendar
+- `/frontend/admin_calendar.php` - Admin Calendar
+
+### Backend APIs
+- `/backend/login_register.php` - Authentication
+- `/backend/forgot_password.php` - Password reset request
+- `/backend/reset_passwordhandler.php` - Password reset handler
+- `/backend/get_events.php` - Fetch events
+- `/backend/register_event.php` - Student pre-registration
+- `/backend/update_university_calendar.php` - Admin calendar sync
 
 ## Recent Changes (October 12, 2025)
-- ✅ Set up PHP development environment in Replit
-- ✅ Configured PHP server workflow on port 5000
-- ✅ Configured deployment settings for production
-- ✅ Created student calendar page with pre-registration functionality
-- ✅ Added event registration system for students
-- ✅ Added registered events panel on student calendar
-- ✅ Enhanced admin calendar with "Save Updates" and "Update University Calendar" buttons
-- ✅ Implemented calendar synchronization between admin and student views
-- ✅ Created event_registrations database table structure
-
-## User Preferences
-- Database management handled externally by project owner
-- UI and backend focused development
+- ✅ Organized codebase into frontend/ and backend/ folders
+- ✅ Created comprehensive database setup scripts
+- ✅ Added password_resets table for forgot password functionality
+- ✅ Created complete_database_setup.sql for easy installation
+- ✅ Updated DATABASE_SETUP_INSTRUCTIONS.md with detailed guide
+- ✅ Implemented student calendar with pre-registration
+- ✅ Enhanced admin calendar with sync buttons
+- ✅ Updated all file paths for new structure
