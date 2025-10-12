@@ -9,7 +9,20 @@ if (!isset($_SESSION['role'])) {
     exit();
 }
 
-$stmt = $conn->prepare("SELECT id, title, description, event_type, start_date, end_date, location, created_by, created_at FROM events ORDER BY start_date ASC");
+$stmt = $conn->prepare(
+    "SELECT 
+        id, 
+        title, 
+        description, 
+        event_type, 
+        DATE_FORMAT(start_date, '%Y-%m-%dT%H:%i:%s') AS start_date, 
+        DATE_FORMAT(end_date, '%Y-%m-%dT%H:%i:%s') AS end_date, 
+        location, 
+        created_by, 
+        DATE_FORMAT(created_at, '%Y-%m-%dT%H:%i:%s') AS created_at 
+     FROM events 
+     ORDER BY start_date ASC"
+);
 $stmt->execute();
 $result = $stmt->get_result();
 

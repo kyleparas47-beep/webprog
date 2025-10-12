@@ -36,18 +36,6 @@ $user_role = $_SESSION['role'] ?? '';
                 <i class="fas fa-chevron-right"></i>
             </a>
             
-            <a href="#" class="profile-popup-item" onclick="showSettings()">
-                <i class="fas fa-cog"></i>
-                <span>Settings</span>
-                <i class="fas fa-chevron-right"></i>
-            </a>
-            
-            <a href="#" class="profile-popup-item" onclick="showNotifications()">
-                <i class="fas fa-bell"></i>
-                <span>Notifications</span>
-                <i class="fas fa-chevron-right"></i>
-            </a>
-            
             <a href="logout.php" class="profile-popup-item logout-item">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Log Out</span>
@@ -72,6 +60,12 @@ $user_role = $_SESSION['role'] ?? '';
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(5px);
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+}
+
+.profile-popup-overlay.show {
+    opacity: 1;
 }
 
 .profile-popup {
@@ -98,13 +92,13 @@ $user_role = $_SESSION['role'] ?? '';
 @keyframes popupSlideIn {
     from {
         opacity: 0;
-        transform: translate(-50%, -60%);
-        scale: 0.9;
+        transform: translate(-50%, -60%) scale(0.8);
+        filter: blur(10px);
     }
     to {
         opacity: 1;
-        transform: translate(-50%, -50%);
-        scale: 1;
+        transform: translate(-50%, -50%) scale(1);
+        filter: blur(0px);
     }
 }
 
@@ -186,20 +180,22 @@ $user_role = $_SESSION['role'] ?? '';
 .profile-popup-item {
     display: flex;
     align-items: center;
-    padding: 18px 25px;
+    padding: 20px 25px;
     text-decoration: none;
     color: #37477b;
     font-weight: 600;
     font-size: 16px;
-    transition: all 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     border-bottom: 1px solid rgba(209, 196, 233, 0.2);
     position: relative;
+    background: transparent;
 }
 
 .profile-popup-item:hover {
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     color: #2c3050;
-    transform: translateX(5px);
+    transform: translateX(8px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .profile-popup-item i:first-child {
@@ -207,16 +203,30 @@ $user_role = $_SESSION['role'] ?? '';
     margin-right: 18px;
     font-size: 18px;
     color: #666;
+    transition: all 0.3s ease;
 }
 
 .profile-popup-item span {
     flex: 1;
+    transition: all 0.3s ease;
 }
 
 .profile-popup-item i:last-child {
     font-size: 14px;
     opacity: 0.6;
     color: #999;
+    transition: all 0.3s ease;
+}
+
+.profile-popup-item:hover i:first-child {
+    color: #1976d2;
+    transform: scale(1.1);
+}
+
+.profile-popup-item:hover i:last-child {
+    opacity: 1;
+    color: #1976d2;
+    transform: translateX(3px);
 }
 
 .profile-popup-item.logout-item {
@@ -280,13 +290,13 @@ $user_role = $_SESSION['role'] ?? '';
 @keyframes popupSlideOut {
     from {
         opacity: 1;
-        transform: translate(-50%, -50%);
-        scale: 1;
+        transform: translate(-50%, -50%) scale(1);
+        filter: blur(0px);
     }
     to {
         opacity: 0;
-        transform: translate(-50%, -60%);
-        scale: 0.9;
+        transform: translate(-50%, -60%) scale(0.8);
+        filter: blur(10px);
     }
 }
 </style>
@@ -305,6 +315,11 @@ function showProfileMenu() {
         
         // Add entrance animation
         popup.classList.remove('closing');
+        
+        // Trigger overlay fade-in
+        setTimeout(() => {
+            overlay.classList.add('show');
+        }, 10);
     } else {
         console.error('Popup elements not found');
     }
@@ -316,6 +331,9 @@ function closeProfileMenu() {
     const overlay = document.getElementById('profileMenuOverlay');
     
     if (popup && overlay) {
+        // Start overlay fade-out
+        overlay.classList.remove('show');
+        
         // Add exit animation
         popup.classList.add('closing');
         
@@ -324,19 +342,10 @@ function closeProfileMenu() {
             overlay.style.display = 'none';
             document.body.style.overflow = 'auto';
             popup.classList.remove('closing');
-        }, 200); // Match animation duration
+        }, 300); // Match animation duration
     }
 }
 
-function showSettings() {
-    closeProfileMenu();
-    alert('Settings functionality coming soon!');
-}
-
-function showNotifications() {
-    closeProfileMenu();
-    alert('Notifications functionality coming soon!');
-}
 
 // Close menu when pressing Escape key
 document.addEventListener('keydown', function(e) {
@@ -355,3 +364,4 @@ document.addEventListener('click', function(e) {
     }
 });
 </script>
+

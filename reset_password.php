@@ -39,7 +39,29 @@ if (empty($userId) || empty($email)) {
 <body>
     <div class="container">
         <div class="form-box active">
+<<<<<<< HEAD
             <form action="reset_passwordhandler.php" method="post">
+=======
+            <?php if ($validToken): ?>
+                <form action="reset_passwordhandler.php" method="post">
+                    <div class="logo"></div>
+                    <h2 class="welcome-text">Reset Your<br>Password</h2>
+                    <?= showError($error); ?>
+                    <?= showSuccess($success); ?>
+                    
+                    <div class="input-container">
+                        <input type="password" name="new_password" placeholder="New Password" required minlength="6">
+                        <input type="password" name="confirm_password" placeholder="Confirm Password" required minlength="6">
+                    </div>
+                    
+                    <input type="hidden" name="token" value="<?= htmlspecialchars($token); ?>">
+                    
+                    <button type="submit" name="reset_password" class="login-button">Reset Password</button>
+                    
+                    <a href="index.php" class="back-link">Back to Login</a>
+                </form>
+            <?php else: ?>
+>>>>>>> ad35dc711a5ebf0e0ba9feee1a7bc01cbbc7d0e8
                 <div class="logo"></div>
                 <h2 class="welcome-text">Reset Your<br>Password</h2>
                 <?= showError($error); ?>

@@ -23,6 +23,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     }
     
+    // Normalize and validate date/time inputs from datetime-local (e.g., 2025-10-13T09:00)
+    $normalize_datetime = function ($value) {
+        $value = trim((string)$value);
+        if ($value === '') return '';
+        // Replace 'T' with space for MySQL DATETIME
+        $value = str_replace('T', ' ', $value);
+        // Append seconds if missing
+        if (preg_match('/^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/', $value)) {
+            $value .= ':00';
+        }
+        return $value;
+    };
+
+    $start_date = $normalize_datetime($start_date);
+    $end_date = $normalize_datetime($end_date);
+
+    // Basic chronological validation
+    try {
+        $start_dt = new DateTime($start_date);
+        $end_dt = new DateTime($end_date);
+        if ($end_dt <= $start_dt) {
+            echo json_encode(['success' => false, 'message' => 'End date/time must be after start date/time']);
+            exit();
+        }
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => 'Invalid date/time format']);
+        exit();
+    }
+
+    // Ensure event_type is within allowed values
+    $allowed_types = ['Events', 'Webinar', 'Seminars', 'Workshop'];
+    if (!in_array($event_type, $allowed_types, true)) {
+        $event_type = 'Events';
+    }
+
     $stmt = $conn->prepare("INSERT INTO events (title, description, event_type, start_date, end_date, location, created_by, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
     $stmt->bind_param("ssssssi", $title, $description, $event_type, $start_date, $end_date, $location, $created_by);
     

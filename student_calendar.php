@@ -168,7 +168,11 @@ $student_name = $_SESSION['name'];
             </nav>
 
             <div class="header-icons">
+<<<<<<< HEAD
                 <button onclick="showProfileMenu()" class="icon-btn user-icon">
+=======
+                <button onclick="window.location.href='logout.php'" class="icon-btn user-icon">
+>>>>>>> ad35dc711a5ebf0e0ba9feee1a7bc01cbbc7d0e8
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <button class="icon-btn hamburger-menu">
@@ -224,8 +228,7 @@ $student_name = $_SESSION['name'];
                 <button class="filter-btn" data-filter="workshop">Workshop</button>
             </div>
 
-            <div class="calendar-content">
-            </div>
+            <div class="calendar-content"></div>
         </main>
     </div>
 
@@ -292,14 +295,20 @@ $student_name = $_SESSION['name'];
                     if (data.success) {
                         allEvents = data.events.map(event => ({
                             ...event,
-                            start: new Date(event.start_date),
-                            end: new Date(event.end_date)
+                            start: parseApiDate(event.start_date),
+                            end: parseApiDate(event.end_date)
                         }));
                         renderCalendar();
                         displayUpcomingEvents();
                     }
                 })
                 .catch(error => console.error('Error loading events:', error));
+        }
+
+        function parseApiDate(value) {
+            if (!value) return null;
+            const str = typeof value === 'string' ? value.replace(' ', 'T') : value;
+            return new Date(str);
         }
 
         function loadRegisteredEvents() {

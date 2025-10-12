@@ -12,7 +12,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'student') {
 $student_id = $_SESSION['user_id'];
 
 $stmt = $conn->prepare("
-    SELECT e.* 
+    SELECT 
+        e.id,
+        e.title,
+        e.description,
+        e.event_type,
+        DATE_FORMAT(e.start_date, '%Y-%m-%dT%H:%i:%s') AS start_date,
+        DATE_FORMAT(e.end_date, '%Y-%m-%dT%H:%i:%s') AS end_date,
+        e.location
     FROM events e 
     INNER JOIN event_registrations er ON e.id = er.event_id 
     WHERE er.student_id = ? 
