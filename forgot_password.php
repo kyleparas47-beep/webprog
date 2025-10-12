@@ -75,7 +75,7 @@ if (isset($_POST['forgot_password'])) {
     
     $stmt->close();
     $_SESSION['active_form'] = 'forgot_password';
-    header("Location: /frontend/index.php");
+    header("Location: /index.php");
     exit();
 }
 ?>

@@ -1,6 +1,8 @@
--- Student/User Table Setup
+-- ============================================
+-- NUEvents - Student/User Table
+-- ============================================
 -- This table stores all user accounts (both students and admins)
--- Run this SQL script in your MySQL database
+-- Import Order: Import this file FIRST before other tables
 
 CREATE TABLE IF NOT EXISTS `student` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -17,8 +19,14 @@ CREATE TABLE IF NOT EXISTS `student` (
 -- Create index for faster email lookups (used during login)
 CREATE INDEX IF NOT EXISTS `idx_student_email` ON `student` (`email`);
 
--- Default admin account (password: admin123)
--- You should change this password after first login!
+-- ============================================
+-- Default Admin Account
+-- ============================================
+-- Email: admin@nu.edu.ph
+-- Password: admin123
+-- ⚠️ IMPORTANT: Change this password after first login!
+-- ============================================
+
 INSERT INTO `student` (`name`, `email`, `password`, `role`) 
 VALUES ('Admin User', 'admin@nu.edu.ph', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', 'admin')
 ON DUPLICATE KEY UPDATE id=id;

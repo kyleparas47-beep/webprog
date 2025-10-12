@@ -1,6 +1,9 @@
--- Password Resets Table Setup
+-- ============================================
+-- NUEvents - Password Resets Table
+-- ============================================
 -- This table is required for the "Forgot Password" functionality
--- Run this SQL script in your MySQL database if you only need the password resets table
+-- Import Order: Import this file AFTER student_table.sql
+-- Requires: student table must exist (foreign key dependency)
 
 CREATE TABLE IF NOT EXISTS `password_resets` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -18,8 +21,11 @@ CREATE TABLE IF NOT EXISTS `password_resets` (
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS `idx_password_resets_token` ON `password_resets` (`token`, `expires_at`);
 
+-- ============================================
 -- How it works:
--- 1. When a user requests a password reset, a unique token is generated and stored with an expiration time (1 hour)
+-- ============================================
+-- 1. When a user requests a password reset, a unique token is generated 
+--    and stored with an expiration time (1 hour)
 -- 2. The user receives an email with a link containing this token
 -- 3. When they click the link, the token is validated (must exist and not be expired)
 -- 4. After successful password reset, the token is deleted from this table
