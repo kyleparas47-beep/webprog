@@ -2,7 +2,6 @@
 // Test script to verify password reset functionality
 require_once 'config.php';
 
-echo '<link rel="stylesheet" href="fonts.css">';
 echo "<h2>Password Reset System Test</h2>";
 
 // Test database connection

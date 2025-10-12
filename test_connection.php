@@ -2,7 +2,6 @@
 // Test script to verify database connection and basic functionality
 require_once 'config.php';
 
-echo '<link rel="stylesheet" href="fonts.css">';
 echo "<h2>Database Connection Test</h2>";
 
 // Test database connection

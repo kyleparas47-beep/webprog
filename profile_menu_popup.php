@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 if (!isset($_SESSION['user_id'])) {
     header("Location: index.php");
     exit();
@@ -48,8 +50,8 @@ $user_role = $_SESSION['role'] ?? '';
 <div id="profileMenuOverlay" class="profile-popup-overlay" style="display: none;" onclick="closeProfileMenu()"></div>
 
 <style>
-/* Ensure Poppins font is used */
-* {
+/* Ensure Poppins font is used - Exclude Font Awesome icons */
+*:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]) {
     font-family: "Poppins", sans-serif !important;
 }
 
