@@ -33,14 +33,14 @@ if (isset($_POST['forgot_password'])) {
     if (empty($email)) {
         $_SESSION['forgot_password_error'] = 'Email address is required!';
         $_SESSION['active_form'] = 'forgot_password';
-        header("Location: /frontend/index.php");
+        header("Location: /index.php");
         exit();
     }
 
     if (!validateEmail($email)) {
         $_SESSION['forgot_password_error'] = 'Please enter a valid email address!';
         $_SESSION['active_form'] = 'forgot_password';
-        header("Location: /frontend/index.php");
+        header("Location: /index.php");
         exit();
     }
 

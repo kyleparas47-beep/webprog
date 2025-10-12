@@ -13,8 +13,8 @@ $student_name = $_SESSION['name'];
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Calendar - National University</title>
-    <link rel="stylesheet" href="/frontend/student.css">
-    <link rel="stylesheet" href="/frontend/calendar_admin.css">
+    <link rel="stylesheet" href="/student.css">
+    <link rel="stylesheet" href="/calendar_admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         .registered-events-panel {
@@ -155,20 +155,20 @@ $student_name = $_SESSION['name'];
         <div class="header-container">
             <div class="logo-section">
                 <div class="logo-icon">
-                    <img src="/frontend/assets/national-university-philippines-logo-png_seeklogo-499282-removebg-preview.png" alt="National University Logo" class="logo-img">
+                    <img src="/assets/national-university-philippines-logo-png_seeklogo-499282-removebg-preview.png" alt="National University Logo" class="logo-img">
                 </div>
                 <span class="logo-text">National University</span>
             </div>
             <nav class="nav-links">
-                <a href="/frontend/student_page.php" class="nav-link">HOME</a>
+                <a href="/student_page.php" class="nav-link">HOME</a>
                 <span class="nav-divider">|</span>
-                <a href="/frontend/student_calendar.php" class="nav-link active">CALENDAR</a>
+                <a href="/student_calendar.php" class="nav-link active">CALENDAR</a>
                 <span class="nav-divider">|</span>
                 <a href="#" class="nav-link">VIEW EVENTS</a>
             </nav>
 
             <div class="header-icons">
-                <button onclick="window.location.href="/backend/logout.php"" class="icon-btn user-icon">
+                <button onclick="window.location.href="/logout.php"" class="icon-btn user-icon">
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <button class="icon-btn hamburger-menu">

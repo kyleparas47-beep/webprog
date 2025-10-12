@@ -20,21 +20,21 @@ if(isset($_POST['register'])) {
     if (empty($name) || empty($email) || empty($password) || empty($role)) {
         $_SESSION['register_error'] = 'All fields are required!';
         $_SESSION['active_form'] = 'register';
-        header("Location: /frontend/index.php");
+        header("Location: /index.php");
         exit();
     }
 
     if (!validateEmail($email)) {
         $_SESSION['register_error'] = 'Please enter a valid email address!';
         $_SESSION['active_form'] = 'register';
-        header("Location: /frontend/index.php");
+        header("Location: /index.php");
         exit();
     }
 
     if (strlen($password) < 6) {
         $_SESSION['register_error'] = 'Password must be at least 6 characters long!';
         $_SESSION['active_form'] = 'register';
-        header("Location: /frontend/index.php");
+        header("Location: /index.php");
         exit();
     }
 
@@ -74,14 +74,14 @@ if (isset($_POST['login'])) {
     if (empty($email) || empty($password)) {
         $_SESSION['login_error'] = 'Email and password are required!';
         $_SESSION['active_form'] = 'login';
-        header("Location: /frontend/index.php");
+        header("Location: /index.php");
         exit();
     }
 
     if (!validateEmail($email)) {
         $_SESSION['login_error'] = 'Please enter a valid email address!';
         $_SESSION['active_form'] = 'login';
-        header("Location: /frontend/index.php");
+        header("Location: /index.php");
         exit();
     }
 
@@ -99,9 +99,9 @@ if (isset($_POST['login'])) {
             $_SESSION['role'] = $user['role'];
 
             if ($user['role'] === 'admin') {
-                header("Location: /frontend/admin_page.php");
+                header("Location: /admin_page.php");
             } else {
-                header("Location: /frontend/student_page.php");
+                header("Location: /student_page.php");
             }
             exit();
         }
