@@ -11,6 +11,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Calendar - National University</title>
+    <link rel="stylesheet" href="fonts.css">
     <link rel="stylesheet" href="student.css">
     <link rel="stylesheet" href="calendar_admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -78,11 +79,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             </nav>
 
             <div class="header-icons">
-<<<<<<< HEAD
                 <button onclick="showProfileMenu()" class="icon-btn user-icon">
-=======
-                <button onclick="window.location.href='logout.php'" class="icon-btn user-icon">
->>>>>>> ad35dc711a5ebf0e0ba9feee1a7bc01cbbc7d0e8
                     <i class="fas fa-user-circle"></i>
                 </button>
                 <button class="icon-btn hamburger-menu">

@@ -3,6 +3,7 @@
 session_start();
 require_once 'config.php';
 
+echo '<link rel="stylesheet" href="fonts.css">';
 echo "<h2>Password Reset Codes - Development Testing</h2>";
 
 // Show current session codes

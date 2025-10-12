@@ -48,6 +48,11 @@ $user_role = $_SESSION['role'] ?? '';
 <div id="profileMenuOverlay" class="profile-popup-overlay" style="display: none;" onclick="closeProfileMenu()"></div>
 
 <style>
+/* Ensure Poppins font is used */
+* {
+    font-family: "Poppins", sans-serif !important;
+}
+
 .profile-popup-overlay {
     position: fixed;
     top: 0;
