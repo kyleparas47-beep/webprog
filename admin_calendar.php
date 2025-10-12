@@ -192,7 +192,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         </div>
     </div>
 
-    <?php include 'profile_menu.php'; ?>
+    <?php include 'profile_menu_popup.php'; ?>
     <script src="calendar_admin.js"></script>
 </body>
 </html>

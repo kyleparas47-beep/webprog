@@ -252,7 +252,7 @@ $student_name = $_SESSION['name'];
         </div>
     </div>
 
-    <?php include 'profile_menu.php'; ?>
+    <?php include 'profile_menu_popup.php'; ?>
     <script src="calendar_functions.js"></script>
     <script>
         const studentId = <?php echo $student_id; ?>;

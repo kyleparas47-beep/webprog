@@ -85,6 +85,6 @@
             </div>
         </div>
     </main>
-    <?php include 'profile_menu.php'; ?>
+    <?php include 'profile_menu_popup.php'; ?>
 </body>
 </html>
