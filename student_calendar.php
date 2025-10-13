@@ -166,9 +166,8 @@ $student_name = $_SESSION['name'];
                 <span class="nav-divider">|</span>
                 <a href="student_calendar.php" class="nav-link active">CALENDAR</a>
                 <span class="nav-divider">|</span>
-                <a href="#" class="nav-link">VIEW EVENTS</a>
+                <a href="view_events.php" class="nav-link">VIEW EVENTS</a>
             </nav>
-
             <div class="header-icons">
                 <button onclick="showProfileMenu()" class="icon-btn user-icon">
                     <i class="fas fa-user-circle"></i>

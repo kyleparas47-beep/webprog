@@ -9,11 +9,12 @@ $errors = [
     'forgot_password' => $_SESSION['forgot_password_error'] ?? ''
 ];
 $success_messages = [
+    'register' => $_SESSION['register_success'] ?? '',
     'forgot_password' => $_SESSION['forgot_password_success'] ?? ''
 ];
 
 $activeForm = $_SESSION['active_form'] ?? 'login';
-unset($_SESSION['login_error'], $_SESSION['register_error'], $_SESSION['forgot_password_error'], $_SESSION['forgot_password_success'], $_SESSION['active_form']);
+unset($_SESSION['login_error'], $_SESSION['register_error'], $_SESSION['register_success'], $_SESSION['forgot_password_error'], $_SESSION['forgot_password_success'], $_SESSION['active_form']);
 
 function showError($error) {
     return !empty($error) ? "<p class='error-message'>$error</p>" : '';
@@ -43,6 +44,7 @@ function isActiveForm($formName, $activeForm){
                 <div class="logo"></div>
                 <h2 class="welcome-text">Welcome,<br>Nationalian!</h2>
                 <?= showError($errors['login']); ?>
+                <?= showSuccess($success_messages['register']); ?>
                 
                 <div class="input-container">
                     <input type="email" name="email" placeholder="Email" required>

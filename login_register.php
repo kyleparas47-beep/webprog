@@ -6,7 +6,6 @@ function sanitizeInput($data) {
     return htmlspecialchars(strip_tags(trim($data)));
 }
 
-
 function validateEmail($email) {
     return filter_var($email, FILTER_VALIDATE_EMAIL);
 }
@@ -53,7 +52,7 @@ if(isset($_POST['register'])) {
         $stmt->bind_param("ssss", $name, $email, $hashedPassword, $role);
         
         if ($stmt->execute()) {
-            $_SESSION['login_error'] = 'Registration successful! Please login.';
+            $_SESSION['register_success'] = 'Registration successful! Please login.';
             $_SESSION['active_form'] = 'login';
         } else {
             $_SESSION['register_error'] = 'Registration failed. Please try again.';

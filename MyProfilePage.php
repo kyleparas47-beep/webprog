@@ -7,9 +7,76 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+require_once __DIR__ . '/config.php';
+
+$user_id = $_SESSION['user_id'];
 $user_name = $_SESSION['name'] ?? 'User';
 $user_email = $_SESSION['email'] ?? '';
 $user_role = $_SESSION['role'] ?? '';
+
+// Handle form submission
+$message = '';
+$message_type = '';
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
+    $new_name = trim($_POST['name'] ?? '');
+    $new_email = trim($_POST['email'] ?? '');
+    
+    // Validation
+    if (empty($new_name)) {
+        $message = 'Name cannot be empty.';
+        $message_type = 'error';
+    } elseif (empty($new_email)) {
+        $message = 'Email cannot be empty.';
+        $message_type = 'error';
+    } elseif (!filter_var($new_email, FILTER_VALIDATE_EMAIL)) {
+        $message = 'Please enter a valid email address.';
+        $message_type = 'error';
+    } else {
+        // Check if email is already taken by another user
+        $check_email = $conn->prepare("SELECT id FROM student WHERE email = ? AND id != ?");
+        if (!$check_email) {
+            $message = 'Database error: ' . $conn->error;
+            $message_type = 'error';
+        } else {
+            $check_email->bind_param("si", $new_email, $user_id);
+            $check_email->execute();
+            $result = $check_email->get_result();
+            
+            if ($result->num_rows > 0) {
+                $message = 'This email is already taken by another user.';
+                $message_type = 'error';
+            } else {
+                // Update user information
+                $update_stmt = $conn->prepare("UPDATE student SET name = ?, email = ? WHERE id = ?");
+                if (!$update_stmt) {
+                    $message = 'Database error: ' . $conn->error;
+                    $message_type = 'error';
+                } else {
+                    $update_stmt->bind_param("ssi", $new_name, $new_email, $user_id);
+                    
+                    if ($update_stmt->execute()) {
+                        // Update session data
+                        $_SESSION['name'] = $new_name;
+                        $_SESSION['email'] = $new_email;
+                        
+                        // Update local variables for display
+                        $user_name = $new_name;
+                        $user_email = $new_email;
+                        
+                        $message = 'Profile updated successfully!';
+                        $message_type = 'success';
+                    } else {
+                        $message = 'Failed to update profile. Please try again.';
+                        $message_type = 'error';
+                    }
+                    $update_stmt->close();
+                }
+            }
+            $check_email->close();
+        }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -24,10 +91,11 @@ $user_role = $_SESSION['role'] ?? '';
             background-color: #4a4e9e;
             color: #31344d;
             margin: 0;
+            padding-top: 100px;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
         }
 
         .profile-container {
@@ -37,7 +105,34 @@ $user_role = $_SESSION['role'] ?? '';
             padding: 2rem;
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            transform: scale(0.8);
+            animation: profileSlideIn 0.2s ease-out forwards;
+        }
+
+        @keyframes profileSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .profile-container.closing {
+            animation: profileSlideOut 0.15s ease-in forwards;
+        }
+
+        @keyframes profileSlideOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.8);
+            }
         }
 
         .profile-header {
@@ -92,23 +187,57 @@ $user_role = $_SESSION['role'] ?? '';
             margin-top: 0.1rem;
         }
 
-        .update-item {
-            height: 60px;
-            background-color: white;
-            border-radius: 10px;
-            padding: 0.6rem 1rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            font-weight: 700;
-            color: #37477b;
-            cursor: pointer;
-            box-shadow: 3px 3px 10px #bebfe0, -3px -3px 10px #ffffff;
-            transition: background-color 0.3s;
+        .form-group {
+            margin-bottom: 1.5rem;
         }
 
-        .update-item:hover {
-            background-color: #e5e9fb;
+        .form-label {
+            display: block;
+            font-weight: 700;
+            color: #37477b;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .form-input {
+            width: 100%;
+            height: 50px;
+            background-color: white;
+            border: 2px solid #e5e9fb;
+            border-radius: 10px;
+            padding: 0 1rem;
+            font-size: 1rem;
+            color: #37477b;
+            font-weight: 600;
+            box-shadow: 3px 3px 10px #bebfe0, -3px -3px 10px #ffffff;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            box-sizing: border-box;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #37477b;
+            box-shadow: 3px 3px 10px #bebfe0, -3px -3px 10px #ffffff, 0 0 0 3px rgba(55, 71, 123, 0.1);
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .message.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
         }
 
         .action-buttons {
@@ -139,11 +268,38 @@ $user_role = $_SESSION['role'] ?? '';
     </style>
 </head>
 <body onload="initPage()">
+    <header class="header">
+        <div class="header-container">
+            <div class="logo-section">
+                <div class="logo-icon">
+                    <img src="assets/national-university-philippines-logo-png_seeklogo-499282-removebg-preview.png" alt="National University Logo" class="logo-img">
+                </div>
+                <span class="logo-text">National University</span>
+            </div>
+            <nav class="nav-links">
+                <a href="<?= $user_role === 'admin' ? 'admin_page.php' : 'student_page.php' ?>" class="nav-link">HOME</a>
+                <span class="nav-divider">|</span>
+                <a href="<?= $user_role === 'admin' ? 'admin_calendar.php' : 'student_calendar.php' ?>" class="nav-link">CALENDAR</a>
+                <span class="nav-divider">|</span>
+                <a href="view_events.php" class="nav-link">VIEW EVENTS</a>
+            </nav>
+            <div class="header-icons">
+                <button onclick="showProfileMenu()" class="icon-btn user-icon">
+                    <i class="fas fa-user-circle"></i>
+                </button>
+                <button class="icon-btn hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    
     <div class="profile-container">
         <header class="profile-header">
             <button class="back-btn" onclick="goBack()">&larr;</button>
             <h2>Profile Information</h2>
         </header>
+        
         <div class="profile-info">
             <img class="avatar" src="https://ui-avatars.com/api/?name=<?= urlencode($user_name) ?>&background=1976d2&color=fff&size=90" alt="Avatar of <?= htmlspecialchars($user_name) ?>" />
             <div class="user-details">
@@ -152,51 +308,64 @@ $user_role = $_SESSION['role'] ?? '';
                 <div class="role" style="font-size: 12px; color: #7a7c90; margin-top: 5px; text-transform: uppercase; font-weight: 600;"><?= htmlspecialchars($user_role) ?></div>
             </div>
         </div>
-        <div class="update-item" onclick="updateName()">
-            <span>Update Name:</span>
-            <span>&gt;</span>
-        </div>
-        <div class="update-item" onclick="updateEmail()">
-            <span>Update Email:</span>
-            <span>&gt;</span>
-        </div>
-        <div class="action-buttons">
-            <button class="action-button" onclick="saveChanges()">save changes</button>
-            <button class="action-button" onclick="goBack()">Go back</button>
-        </div>
+
+        <?php if (!empty($message)): ?>
+            <div class="message <?= $message_type ?>">
+                <?= htmlspecialchars($message) ?>
+            </div>
+        <?php endif; ?>
+
+        <form method="POST" action="">
+            <input type="hidden" name="update_profile" value="1">
+            
+            <div class="form-group">
+                <label class="form-label" for="name">Full Name:</label>
+                <input type="text" id="name" name="name" class="form-input" value="<?= htmlspecialchars($user_name) ?>" required>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="email">Email Address:</label>
+                <input type="email" id="email" name="email" class="form-input" value="<?= htmlspecialchars($user_email) ?>" required>
+            </div>
+            
+            <div class="action-buttons">
+                <button type="submit" class="action-button">Save Changes</button>
+                <button type="button" class="action-button" onclick="goBack()">Go Back</button>
+            </div>
+        </form>
     </div>
 
     <script>
         function initPage() {
-            document.querySelector('.profile-container').style.opacity = 1;
+            // Animation starts automatically via CSS
         }
 
         function goBack() {
             // Add smooth transition out effect
-            document.querySelector('.profile-container').style.opacity = 0;
+            const container = document.querySelector('.profile-container');
+            container.classList.add('closing');
+            
             setTimeout(() => {
                 <?php if ($user_role === 'admin'): ?>
                     window.location.href = 'admin_page.php';
                 <?php else: ?>
                     window.location.href = 'student_page.php';
                 <?php endif; ?>
-            }, 500); // Match the transition duration
+            }, 150); // Match the animation duration
         }
 
-        function updateName() {
-            // Logic to update name
-            alert('Update Name clicked');
-        }
-
-        function updateEmail() {
-            // Logic to update email
-            alert('Update Email clicked');
-        }
-
-        function saveChanges() {
-            // Logic to save changes
-            alert('Changes saved');
-        }
+        // Auto-hide success messages after 3 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const successMessage = document.querySelector('.message.success');
+            if (successMessage) {
+                setTimeout(() => {
+                    successMessage.style.opacity = '0';
+                    setTimeout(() => {
+                        successMessage.remove();
+                    }, 300);
+                }, 3000);
+            }
+        });
     </script>
 </body>
 </html>

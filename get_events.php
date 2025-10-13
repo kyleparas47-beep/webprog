@@ -18,6 +18,7 @@ $stmt = $conn->prepare(
         DATE_FORMAT(start_date, '%Y-%m-%dT%H:%i:%s') AS start_date, 
         DATE_FORMAT(end_date, '%Y-%m-%dT%H:%i:%s') AS end_date, 
         location, 
+        capacity,
         created_by, 
         DATE_FORMAT(created_at, '%Y-%m-%dT%H:%i:%s') AS created_at 
      FROM events 

@@ -76,9 +76,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
                 <span class="nav-divider">|</span>
                 <a href="admin_calendar.php" class="nav-link active">CALENDAR</a>
                 <span class="nav-divider">|</span>
-                <a href="#" class="nav-link">VIEW EVENTS</a>
+                <a href="view_events.php" class="nav-link">VIEW EVENTS</a>
             </nav>
-
             <div class="header-icons">
                 <button onclick="showProfileMenu()" class="icon-btn user-icon">
                     <i class="fas fa-user-circle"></i>
@@ -184,6 +183,9 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
                 
                 <label for="location">Location:</label>
                 <input type="text" id="location" name="location">
+                
+                <label for="capacity">Capacity:</label>
+                <input type="number" id="capacity" name="capacity" min="1" max="1000" value="50" required>
                 
                 <div class="modal-buttons">
                     <button type="submit" class="btn-save">Save Event</button>

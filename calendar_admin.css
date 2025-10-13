@@ -7,10 +7,11 @@
 .calendar-wrapper {
     display: flex;
     gap: 20px;
-    padding: 20px;
+    padding: 20px 30px;
     margin-top: 80px;
     background-color: #f5f5f5;
     min-height: calc(100vh - 80px);
+    max-width: 100%;
 }
 
 .calendar-sidebar-left {
@@ -330,7 +331,6 @@
     overflow: auto;
 }
 
-/* Month View Styles */
 .month-view {
     height: 100%;
 }
@@ -418,7 +418,6 @@
     padding: 4px;
 }
 
-/* Week View Styles */
 .week-view-container {
     height: 100%;
     display: flex;
@@ -525,7 +524,6 @@
     opacity: 0.9;
 }
 
-/* Day View Styles */
 .day-view-container {
     height: 100%;
     display: flex;
@@ -595,7 +593,6 @@
     opacity: 0.8;
 }
 
-/* Modal Styles */
 .modal {
     display: none;
     position: fixed;

@@ -30,9 +30,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
                 <span class="nav-divider">|</span>
                 <a href="student_calendar.php" class="nav-link">CALENDAR</a>
                 <span class="nav-divider">|</span>
-                <a href="#" class="nav-link">VIEW EVENTS</a>
+                <a href="view_events.php" class="nav-link">VIEW EVENTS</a>
             </nav>
-
             <div class="header-icons">
                 <button onclick="showProfileMenu()" class="icon-btn user-icon">
                     <i class="fas fa-user-circle"></i>
@@ -72,7 +71,7 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'student') {
                     <p class="school-year">Academic Year 2024-2025</p>
                     
                     <div class="action-section">
-                        <button class="see-events-btn">
+                        <button class="see-events-btn" onclick="window.location.href='student_calendar.php'">
                             <span>See Current Events</span>
                             <i class="fas fa-calendar-alt"></i>
                         </button>

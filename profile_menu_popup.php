@@ -50,7 +50,6 @@ $user_role = $_SESSION['role'] ?? '';
 <div id="profileMenuOverlay" class="profile-popup-overlay" style="display: none;" onclick="closeProfileMenu()"></div>
 
 <style>
-/* Ensure Poppins font is used - Exclude Font Awesome icons */
 *:not(.fa):not(.fas):not(.far):not(.fab):not(.fal):not(.fad):not([class*="fa-"]) {
     font-family: "Poppins", sans-serif !important;
 }
@@ -68,7 +67,7 @@ $user_role = $_SESSION['role'] ?? '';
     justify-content: center;
     backdrop-filter: blur(5px);
     opacity: 0;
-    transition: opacity 0.3s ease-out;
+    transition: opacity 0.2s ease-out;
 }
 
 .profile-popup-overlay.show {
@@ -93,19 +92,17 @@ $user_role = $_SESSION['role'] ?? '';
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.2);
     overflow: hidden;
-    animation: popupSlideIn 0.3s ease-out;
+    animation: zoomIn 0.2s ease-out;
 }
 
-@keyframes popupSlideIn {
+@keyframes zoomIn {
     from {
         opacity: 0;
-        transform: translate(-50%, -60%) scale(0.8);
-        filter: blur(10px);
+        transform: translate(-50%, -50%) scale(0.8);
     }
     to {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
-        filter: blur(0px);
     }
 }
 
@@ -251,7 +248,6 @@ $user_role = $_SESSION['role'] ?? '';
     color: #d32f2f;
 }
 
-/* Mobile responsiveness */
 @media (max-width: 768px) {
     .profile-popup {
         width: 95%;
@@ -289,21 +285,18 @@ $user_role = $_SESSION['role'] ?? '';
     }
 }
 
-/* Animation for closing */
 .profile-popup.closing .profile-popup-content {
-    animation: popupSlideOut 0.2s ease-in;
+    animation: zoomOut 0.15s ease-in;
 }
 
-@keyframes popupSlideOut {
+@keyframes zoomOut {
     from {
         opacity: 1;
         transform: translate(-50%, -50%) scale(1);
-        filter: blur(0px);
     }
     to {
         opacity: 0;
-        transform: translate(-50%, -60%) scale(0.8);
-        filter: blur(10px);
+        transform: translate(-50%, -50%) scale(0.8);
     }
 }
 </style>
@@ -320,10 +313,7 @@ function showProfileMenu() {
         overlay.style.display = 'flex';
         document.body.style.overflow = 'hidden';
         
-        // Add entrance animation
         popup.classList.remove('closing');
-        
-        // Trigger overlay fade-in
         setTimeout(() => {
             overlay.classList.add('show');
         }, 10);
@@ -338,10 +328,7 @@ function closeProfileMenu() {
     const overlay = document.getElementById('profileMenuOverlay');
     
     if (popup && overlay) {
-        // Start overlay fade-out
         overlay.classList.remove('show');
-        
-        // Add exit animation
         popup.classList.add('closing');
         
         setTimeout(function() {
@@ -349,19 +336,17 @@ function closeProfileMenu() {
             overlay.style.display = 'none';
             document.body.style.overflow = 'auto';
             popup.classList.remove('closing');
-        }, 300); // Match animation duration
+        }, 150);
     }
 }
 
 
-// Close menu when pressing Escape key
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Escape') {
         closeProfileMenu();
     }
 });
 
-// Prevent popup from closing when clicking inside the popup content
 document.addEventListener('click', function(e) {
     const popup = document.getElementById('profileMenu');
     const overlay = document.getElementById('profileMenuOverlay');

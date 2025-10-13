@@ -321,6 +321,7 @@ function openEventModal(eventId = null, eventData = null, defaultStartDate = nul
         document.getElementById('startDate').value = formatDateTimeLocal(new Date(eventData.start_date));
         document.getElementById('endDate').value = formatDateTimeLocal(new Date(eventData.end_date));
         document.getElementById('location').value = eventData.location;
+        document.getElementById('capacity').value = eventData.capacity || 50;
         deleteBtn.style.display = 'block';
         currentEventId = eventId;
     } else {

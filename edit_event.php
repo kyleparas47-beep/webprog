@@ -17,13 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $start_date = $_POST['start_date'];
     $end_date = $_POST['end_date'];
     $location = trim($_POST['location']);
+    $capacity = isset($_POST['capacity']) ? (int)$_POST['capacity'] : 50;
     
     if (empty($event_id) || empty($title) || empty($event_type) || empty($start_date) || empty($end_date)) {
         echo json_encode(['success' => false, 'message' => 'Required fields are missing']);
         exit();
     }
     
-    // Normalize and validate date/time inputs from datetime-local
     $normalize_datetime = function ($value) {
         $value = trim((string)$value);
         if ($value === '') return '';
@@ -54,8 +54,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $event_type = 'Events';
     }
 
-    $stmt = $conn->prepare("UPDATE events SET title = ?, description = ?, event_type = ?, start_date = ?, end_date = ?, location = ? WHERE id = ?");
-    $stmt->bind_param("ssssssi", $title, $description, $event_type, $start_date, $end_date, $location, $event_id);
+    $stmt = $conn->prepare("UPDATE events SET title = ?, description = ?, event_type = ?, start_date = ?, end_date = ?, location = ?, capacity = ? WHERE id = ?");
+    $stmt->bind_param("ssssssii", $title, $description, $event_type, $start_date, $end_date, $location, $capacity, $event_id);
     
     if ($stmt->execute()) {
         echo json_encode(['success' => true, 'message' => 'Event updated successfully']);
