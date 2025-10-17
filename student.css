@@ -18,7 +18,7 @@ body {
 }
 
 .header {
-  background: linear-gradient(135deg, #36408b 0%, #2c3050 100%);
+  background: #36408b;
   padding: 0;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   display: block;
@@ -154,9 +154,10 @@ body {
   position: relative;
   overflow: hidden;
   width: 90vw;
+  height: 70vh;
   margin-left: calc(-45vw + 50%);
   box-shadow: 0 15px 35px rgba(0.20, 0.10, 0.15, 0.50);
-  margin-top: 100px;
+  margin-top: 50px;
 }
 
 .breadcrumb {
@@ -165,8 +166,8 @@ body {
 
 .breadcrumb-item {
     color: #6b7280;
-    font-size: 12px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: bold;
     letter-spacing: 1px;
     text-transform: uppercase;
 }
@@ -179,34 +180,36 @@ body {
 
 .content-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.8fr 1.2fr;
     gap: 60px;
-    align-items: center;
+    align-items: start;
+    min-height: 400px;
 }
 
 .content-left {
     z-index: 2;
     position: relative;
+    padding-top: 20px;
 }
 
 .main-heading {
-    font-size: 48px;
+    font-size: 60px;
     font-weight: 800;
-    color: #4a5bb8;
+    color: #36408b;
     line-height: 1.1;
-    margin-bottom: 16px;
+    margin-bottom: 10px;
     letter-spacing: -0.5px;
 }
 
 .sub-heading {
-    font-size: 24px;
+    font-size: 28px;
     font-weight: 600;
     color: #4a5bb8;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 .school-year {
-    font-size: 16px;
+    font-size: 20px;
     color: #6b7280;
     margin-bottom: 40px;
     font-weight: 400;
@@ -246,53 +249,106 @@ body {
 .content-right {
     position: relative;
     height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
-.image-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
+.images-container {
+  position: relative;
+  width: 60%;
+  height: 400px;
+  left: 17%;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
-.image-card {
-    position: absolute;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    transition: transform 0.3s ease;
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
-.image-front {
-    width: 320px;
-    height: 240px;
-    top: 0;
-    right: 0;
-    z-index: 2;
-    transform: rotate(-2deg);
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  height: 100%;
 }
 
-.image-back {
-    width: 320px;
-    height: 240px;
-    bottom: 0;
-    left: 20px;
-    z-index: 1;
-    transform: rotate(3deg);
+.carousel-slide {
+  min-width: 100%;
+  height: 100%;
 }
 
-.image-card:hover {
-    transform: rotate(0deg) scale(1.02);
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
-.event-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease;
+.carousel-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  z-index: 10;
 }
 
-.image-card:hover .event-image {
-    transform: scale(1.05);
+.carousel-btn {
+  background-color: rgba(255, 255, 255, 0.15);
+  border: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, transform 0.2s;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-btn:hover {
+  background-color: rgba(255, 255, 255, 0.35);
+  transform: scale(1.15);
+}
+
+.carousel-btn svg {
+  width: 10px;
+  height: 10px;
+  stroke: rgba(74, 90, 158, 0.8);
+  stroke-width: 2.5;
+}
+
+.carousel-indicators {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+.indicator.active {
+  background-color: white;
+  transform: scale(1.2);
 }
 
 .marquee-container {
@@ -315,7 +371,7 @@ body {
     color: white;
     font-size: 16px;
     font-weight: 600;
-    padding: 0 20px;
+    padding: 2px 20px 0 2px;
 }
 
 @keyframes marquee {
@@ -350,16 +406,198 @@ body {
 }
 
 .add-events-link {
-    display: inline-block;
-    margin-left: 20px;
+    display: block;
+    margin-top: 15px;
+    margin-left: 10px;
     color: #4a5bb8;
     text-decoration: none;
     font-size: 16px;
     font-weight: 600;
     transition: all 0.3s ease;
+    text-align: left;
 }
 
 .add-events-link:hover {
     color: #2d3561;
     transform: translateX(5px);
+}
+
+/* Social Media Section */
+.social-media-section {
+    margin-top: 110px;
+}
+
+.social-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #6b7280;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.social-icons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+}
+
+.social-icon i {
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.social-icon.facebook {
+    background-color: #1877f2;
+    color: white;
+}
+
+.social-icon.facebook:hover {
+    background-color: #166fe5;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+}
+
+.social-icon.instagram {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: white;
+}
+
+.social-icon.instagram:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(225, 48, 108, 0.3);
+}
+
+.social-icon.twitter {
+    background-color: #1da1f2;
+    color: white;
+}
+
+.social-icon.twitter:hover {
+    background-color: #1a91da;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(29, 161, 242, 0.3);
+}
+
+.social-icon.youtube {
+    background-color: #ff0000;
+    color: white;
+}
+
+.social-icon.youtube:hover {
+    background-color: #e60000;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 0, 0, 0.3);
+}
+
+.social-icon.linkedin {
+    background-color: #0077b5;
+    color: white;
+}
+
+.social-icon.linkedin:hover {
+    background-color: #006ba1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 119, 181, 0.3);
+}
+
+.social-icon::after {
+    content: attr(title);
+    position: absolute;
+    bottom: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.social-icon:hover::after {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Carousel Responsive Design */
+@media (max-width: 768px) {
+    .content-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        align-items: center;
+    }
+    
+    .content-left {
+        padding-top: 0;
+        text-align: center;
+    }
+    
+    .content-right {
+        height: 350px;
+        justify-content: center;
+    }
+    
+    .images-container {
+        width: 85%;
+        height: 320px;
+    }
+    
+    .social-icons {
+        justify-content: center;
+        gap: 15px;
+    }
+    
+    .social-icon {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .social-icon i {
+        font-size: 18px;
+    }
+    
+}
+
+@media (max-width: 480px) {
+    .content-right {
+        height: 300px;
+    }
+    
+    .images-container {
+        width: 95%;
+        height: 260px;
+    }
+    
+    .social-icons {
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .social-icon {
+        width: 38px;
+        height: 38px;
+    }
+    
+    .social-icon i {
+        font-size: 14px;
+    }
+    
 }

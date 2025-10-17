@@ -75,18 +75,74 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
                             <span>See Current Events</span>
                             <i class="fas fa-calendar-alt"></i>
                         </button>
+                        
                         <a href="admin_calendar.php" class="add-events-link">
                             + add events >
                         </a>
+                        
+                        <div class="social-media-section">
+                            <h3 class="social-title">Follow Us</h3>
+                            <div class="social-icons">
+                                <a href="#" class="social-icon facebook" data-platform="facebook" title="Facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-icon instagram" data-platform="instagram" title="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-icon twitter" data-platform="twitter" title="Twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-icon youtube" data-platform="youtube" title="YouTube">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                                <a href="#" class="social-icon linkedin" data-platform="linkedin" title="LinkedIn">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="content-right">
-                    <div class="image-container">
-                        <div class="image-card image-front">
-                            <img src="assets/492508047_1000140838968339_1613408679840476886_n.jpg" alt="National University students celebrating and cheering in blue uniforms" class="event-image">
-                        </div>
-                        <div class="image-card image-back">
-                            <img src="assets/images.jpg" alt="National University campus event with students gathered outdoors" class="event-image">
+                    <div class="images-container">
+                        <div class="carousel">
+                            <div class="carousel-track">
+                                <div class="carousel-slide">
+                                    <img src="assets/492508047_1000140838968339_1613408679840476886_n.jpg" alt="National University students celebrating and cheering in blue uniforms">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="assets/images.jpg" alt="National University campus event with students gathered outdoors">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="assets/492508047_1000140838968339_1613408679840476886_n.jpg" alt="Students at university event">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="assets/images.jpg" alt="Campus activities">
+                                </div>
+                                <div class="carousel-slide">
+                                    <img src="assets/492508047_1000140838968339_1613408679840476886_n.jpg" alt="University celebration">
+                                </div>
+                            </div>
+                            
+                            <div class="carousel-nav">
+                                <button class="carousel-btn prev-btn" aria-label="Previous image">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <path d="M15 18l-6-6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <button class="carousel-btn next-btn" aria-label="Next image">
+                                    <svg viewBox="0 0 24 24" fill="none">
+                                        <path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <div class="carousel-indicators">
+                                <span class="indicator active" data-slide="0"></span>
+                                <span class="indicator" data-slide="1"></span>
+                                <span class="indicator" data-slide="2"></span>
+                                <span class="indicator" data-slide="3"></span>
+                                <span class="indicator" data-slide="4"></span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -94,5 +150,6 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         </div>
     </main>
     <?php include 'profile_menu_popup.php'; ?>
+    <script src="script.js"></script>
 </body>
 </html>

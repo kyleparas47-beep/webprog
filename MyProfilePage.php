@@ -88,7 +88,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            background-color: #4a4e9e;
+            background-color: #36408b;
             color: #31344d;
             margin: 0;
             padding-top: 100px;
@@ -104,35 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
             width: 400px;
             padding: 2rem;
             box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
-            opacity: 0;
-            transform: scale(0.8);
-            animation: profileSlideIn 0.2s ease-out forwards;
-        }
-
-        @keyframes profileSlideIn {
-            from {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .profile-container.closing {
-            animation: profileSlideOut 0.15s ease-in forwards;
-        }
-
-        @keyframes profileSlideOut {
-            from {
-                opacity: 1;
-                transform: scale(1);
-            }
-            to {
-                opacity: 0;
-                transform: scale(0.8);
-            }
         }
 
         .profile-header {
@@ -210,7 +181,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
             color: #37477b;
             font-weight: 600;
             box-shadow: 3px 3px 10px #bebfe0, -3px -3px 10px #ffffff;
-            transition: border-color 0.3s, box-shadow 0.3s;
             box-sizing: border-box;
         }
 
@@ -256,7 +226,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
             color: #37477b;
             cursor: pointer;
             box-shadow: 3px 3px 10px #bebfe0, -3px -3px 10px #ffffff;
-            transition: background-color 0.3s;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -341,17 +310,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
         }
 
         function goBack() {
-            // Add smooth transition out effect
-            const container = document.querySelector('.profile-container');
-            container.classList.add('closing');
-            
-            setTimeout(() => {
-                <?php if ($user_role === 'admin'): ?>
-                    window.location.href = 'admin_page.php';
-                <?php else: ?>
-                    window.location.href = 'student_page.php';
-                <?php endif; ?>
-            }, 150); // Match the animation duration
+            <?php if ($user_role === 'admin'): ?>
+                window.location.href = 'admin_page.php';
+            <?php else: ?>
+                window.location.href = 'student_page.php';
+            <?php endif; ?>
         }
 
         // Auto-hide success messages after 3 seconds
@@ -359,10 +322,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
             const successMessage = document.querySelector('.message.success');
             if (successMessage) {
                 setTimeout(() => {
-                    successMessage.style.opacity = '0';
-                    setTimeout(() => {
-                        successMessage.remove();
-                    }, 300);
+                    successMessage.remove();
                 }, 3000);
             }
         });

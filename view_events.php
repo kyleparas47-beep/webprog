@@ -12,13 +12,10 @@ require_once __DIR__ . '/config.php';
 $user_role = $_SESSION['role'] ?? '';
 $user_id = $_SESSION['user_id'];
 
-// Handle success messages
 $success_message = '';
 if (isset($_GET['deleted']) && $_GET['deleted'] == '1') {
     $success_message = 'Event deleted successfully!';
 }
-
-// Fetch upcoming events (events with start_date >= today)
 $upcoming_events = [];
 $upcoming_query = "SELECT * FROM events WHERE DATE(start_date) >= CURDATE() ORDER BY start_date ASC";
 $upcoming_result = $conn->query($upcoming_query);
@@ -28,7 +25,6 @@ if ($upcoming_result) {
     }
 }
 
-// Fetch previous events (events with start_date < today)
 $previous_events = [];
 $previous_query = "SELECT * FROM events WHERE DATE(start_date) < CURDATE() ORDER BY start_date DESC";
 $previous_result = $conn->query($previous_query);
@@ -38,7 +34,6 @@ if ($previous_result) {
     }
 }
 
-// Check if user is registered for events (for students)
 $registered_events = [];
 if ($user_role === 'student') {
     $reg_query = "SELECT event_id FROM event_registrations WHERE student_id = ?";
@@ -68,7 +63,7 @@ if ($user_role === 'student') {
         }
 
         body {
-            background-color: #4a4e9e;
+            background-color: #36408b;
             color: #31344d;
             margin: 0;
             padding: 0;
@@ -372,7 +367,6 @@ if ($user_role === 'student') {
             </div>
         <?php endif; ?>
 
-        <!-- Upcoming Events Section -->
         <div class="events-section">
             <h2 class="section-title">
                 <i class="fas fa-clock"></i>
@@ -404,7 +398,6 @@ if ($user_role === 'student') {
                                 $is_registered = in_array($event['id'], $registered_events);
                                 $current_registrations = 0;
                                 
-                                // Get current registration count
                                 $count_query = "SELECT COUNT(*) as count FROM event_registrations WHERE event_id = ?";
                                 $count_stmt = $conn->prepare($count_query);
                                 $count_stmt->bind_param("i", $event['id']);
@@ -466,7 +459,6 @@ if ($user_role === 'student') {
             </div>
         </div>
 
-        <!-- Previous Events Section -->
         <div class="events-section">
             <h2 class="section-title">
                 <i class="fas fa-history"></i>
@@ -498,7 +490,6 @@ if ($user_role === 'student') {
                                 $is_registered = in_array($event['id'], $registered_events);
                                 $current_registrations = 0;
                                 
-                                // Get current registration count
                                 $count_query = "SELECT COUNT(*) as count FROM event_registrations WHERE event_id = ?";
                                 $count_stmt = $conn->prepare($count_query);
                                 $count_stmt->bind_param("i", $event['id']);
@@ -560,9 +551,7 @@ if ($user_role === 'student') {
     <?php include 'profile_menu_popup.php'; ?>
 
     <script>
-        // Add smooth scrolling for better UX
         document.addEventListener('DOMContentLoaded', function() {
-            // Add animation to table rows
             const tableRows = document.querySelectorAll('.events-table tbody tr');
             tableRows.forEach((row, index) => {
                 row.style.opacity = '0';
@@ -573,8 +562,6 @@ if ($user_role === 'student') {
                     row.style.transform = 'translateY(0)';
                 }, index * 50);
             });
-
-            // Auto-hide success messages after 3 seconds
             const successMessage = document.querySelector('.message.success');
             if (successMessage) {
                 setTimeout(() => {
