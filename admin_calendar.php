@@ -77,6 +77,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
                 <a href="admin_calendar.php" class="nav-link active">CALENDAR</a>
                 <span class="nav-divider">|</span>
                 <a href="view_events.php" class="nav-link">VIEW EVENTS</a>
+                <span class="nav-divider">|</span>
+                <a href="attendance.php" class="nav-link">ATTENDANCE</a>
             </nav>
             <div class="header-icons">
                 <button onclick="showProfileMenu()" class="icon-btn user-icon">

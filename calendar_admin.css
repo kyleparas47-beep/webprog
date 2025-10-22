@@ -150,8 +150,8 @@
 }
 
 .event-color-bar.webinar { background: #f39c12; }
-.event-color-bar.seminars { background: #e74c3c; }
-.event-color-bar.workshop { background: #27ae60; }
+.event-color-bar.seminars { background: #27ae60; }
+.event-color-bar.workshop { background: #6c757d; }
 .event-color-bar.events { background: #4a5bb8; }
 
 .event-details {
@@ -409,8 +409,8 @@
 }
 
 .month-event.webinar { background: #f39c12; }
-.month-event.seminars { background: #e74c3c; }
-.month-event.workshop { background: #27ae60; }
+.month-event.seminars { background: #27ae60; }
+.month-event.workshop { background: #6c757d; }
 
 .month-event-more {
     font-size: 11px;
@@ -510,8 +510,8 @@
 }
 
 .week-event.webinar { background: #f39c12; }
-.week-event.seminars { background: #e74c3c; }
-.week-event.workshop { background: #27ae60; }
+.week-event.seminars { background: #27ae60; }
+.week-event.workshop { background: #6c757d; }
 
 .week-event-title {
     font-weight: 600;
@@ -573,8 +573,8 @@
 }
 
 .day-event.webinar { background: #f39c12; }
-.day-event.seminars { background: #e74c3c; }
-.day-event.workshop { background: #27ae60; }
+.day-event.seminars { background: #27ae60; }
+.day-event.workshop { background: #6c757d; }
 
 .day-event-title {
     font-weight: 600;

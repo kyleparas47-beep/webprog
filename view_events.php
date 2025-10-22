@@ -35,14 +35,16 @@ if ($previous_result) {
 }
 
 $registered_events = [];
+$registered_tickets = [];
 if ($user_role === 'student') {
-    $reg_query = "SELECT event_id FROM event_registrations WHERE student_id = ?";
+    $reg_query = "SELECT event_id, ticket_number FROM event_registrations WHERE student_id = ?";
     $reg_stmt = $conn->prepare($reg_query);
     $reg_stmt->bind_param("i", $user_id);
     $reg_stmt->execute();
     $reg_result = $reg_stmt->get_result();
     while ($row = $reg_result->fetch_assoc()) {
         $registered_events[] = $row['event_id'];
+        $registered_tickets[$row['event_id']] = $row['ticket_number'];
     }
     $reg_stmt->close();
 }
@@ -299,6 +301,34 @@ if ($user_role === 'student') {
             transform: translateY(-1px);
         }
 
+        .btn-view-ticket {
+            display: inline-block;
+            margin-top: 8px;
+            padding: 6px 12px;
+            background: #1976d2;
+            color: white !important;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .btn-view-ticket:hover {
+            background: #1565c0;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(25, 118, 210, 0.3);
+        }
+
+        .btn-view-ticket i {
+            margin-right: 4px;
+        }
+
+        .event-status {
+            text-align: center;
+        }
+
         .btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
@@ -343,6 +373,10 @@ if ($user_role === 'student') {
                 <a href="<?= $user_role === 'admin' ? 'admin_calendar.php' : 'student_calendar.php' ?>" class="nav-link">CALENDAR</a>
                 <span class="nav-divider">|</span>
                 <a href="view_events.php" class="nav-link active">VIEW EVENTS</a>
+                <?php if ($user_role === 'admin'): ?>
+                <span class="nav-divider">|</span>
+                <a href="attendance.php" class="nav-link">ATTENDANCE</a>
+                <?php endif; ?>
             </nav>
             <div class="header-icons">
                 <button onclick="showProfileMenu()" class="icon-btn user-icon">
@@ -429,13 +463,25 @@ if ($user_role === 'student') {
                                     </td>
                                     <td class="event-status">
                                         <?php if ($user_role === 'student'): ?>
-                                            <?php if ($is_registered): ?>
-                                                <span class="status-badge status-registered">Registered</span>
-                                            <?php elseif ($is_full): ?>
-                                                <span class="status-badge status-full">Full</span>
-                                            <?php else: ?>
-                                                <span class="status-badge status-upcoming">Available</span>
-                                            <?php endif; ?>
+                                            <div>
+                                                <?php if ($is_registered): ?>
+                                                    <span class="status-badge status-registered">Registered</span>
+                                                    <?php 
+                                                    $ticket = $registered_tickets[$event['id']] ?? null;
+                                                    if ($ticket): 
+                                                    ?>
+                                                        <br>
+                                                        <a href="view_ticket.php?ticket=<?= htmlspecialchars($ticket) ?>" 
+                                                           class="btn-view-ticket">
+                                                            <i class="fas fa-ticket-alt"></i> View Ticket
+                                                        </a>
+                                                    <?php endif; ?>
+                                                <?php elseif ($is_full): ?>
+                                                    <span class="status-badge status-full">Full</span>
+                                                <?php else: ?>
+                                                    <span class="status-badge status-upcoming">Available</span>
+                                                <?php endif; ?>
+                                            </div>
                                         <?php else: ?>
                                             <span class="status-badge status-upcoming">Upcoming</span>
                                         <?php endif; ?>
@@ -519,11 +565,23 @@ if ($user_role === 'student') {
                                     </td>
                                     <td class="event-status">
                                         <?php if ($user_role === 'student'): ?>
-                                            <?php if ($is_registered): ?>
-                                                <span class="status-badge status-registered">Attended</span>
-                                            <?php else: ?>
-                                                <span class="status-badge status-past">Missed</span>
-                                            <?php endif; ?>
+                                            <div>
+                                                <?php if ($is_registered): ?>
+                                                    <span class="status-badge status-registered">Attended</span>
+                                                    <?php 
+                                                    $ticket = $registered_tickets[$event['id']] ?? null;
+                                                    if ($ticket): 
+                                                    ?>
+                                                        <br>
+                                                        <a href="view_ticket.php?ticket=<?= htmlspecialchars($ticket) ?>" 
+                                                           class="btn-view-ticket">
+                                                            <i class="fas fa-ticket-alt"></i> View Ticket
+                                                        </a>
+                                                    <?php endif; ?>
+                                                <?php else: ?>
+                                                    <span class="status-badge status-past">Missed</span>
+                                                <?php endif; ?>
+                                            </div>
                                         <?php else: ?>
                                             <span class="status-badge status-past">Completed</span>
                                         <?php endif; ?>

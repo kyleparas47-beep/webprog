@@ -11,9 +11,12 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'student') {
 
 $student_id = $_SESSION['user_id'];
 $event_id = $_POST['event_id'] ?? null;
+$student_name = trim($_POST['student_name'] ?? '');
+$section = trim($_POST['section'] ?? '');
+$course = trim($_POST['course'] ?? '');
 
-if (!$event_id) {
-    echo json_encode(['success' => false, 'message' => 'Event ID required']);
+if (!$event_id || !$student_name || !$section || !$course) {
+    echo json_encode(['success' => false, 'message' => 'All fields are required']);
     exit();
 }
 
@@ -27,11 +30,36 @@ if ($result->num_rows > 0) {
     exit();
 }
 
-$stmt = $conn->prepare("INSERT INTO event_registrations (student_id, event_id, registered_at) VALUES (?, ?, NOW())");
-$stmt->bind_param("ii", $student_id, $event_id);
+// Generate unique ticket number
+function generateTicketNumber($conn) {
+    do {
+        $ticket_number = 'NU-' . str_pad(rand(100000, 999999), 6, '0', STR_PAD_LEFT);
+        $checkTicket = $conn->prepare("SELECT id FROM event_registrations WHERE ticket_number = ?");
+        $checkTicket->bind_param("s", $ticket_number);
+        $checkTicket->execute();
+        $ticketResult = $checkTicket->get_result();
+        $checkTicket->close();
+    } while ($ticketResult->num_rows > 0);
+    
+    return $ticket_number;
+}
+
+$ticket_number = generateTicketNumber($conn);
+
+// Generate QR code data (we'll store the ticket number as QR data)
+$qr_code_data = $ticket_number;
+
+$stmt = $conn->prepare("INSERT INTO event_registrations (student_id, event_id, student_name, section, course, ticket_number, qr_code, registered_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+$stmt->bind_param("iisssss", $student_id, $event_id, $student_name, $section, $course, $ticket_number, $qr_code_data);
 
 if ($stmt->execute()) {
-    echo json_encode(['success' => true, 'message' => 'Successfully registered']);
+    $registration_id = $conn->insert_id;
+    echo json_encode([
+        'success' => true, 
+        'message' => 'Successfully registered',
+        'ticket_number' => $ticket_number,
+        'registration_id' => $registration_id
+    ]);
 } else {
     echo json_encode(['success' => false, 'message' => 'Registration failed']);
 }

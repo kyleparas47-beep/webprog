@@ -150,6 +150,259 @@ $student_name = $_SESSION['name'];
             cursor: default;
             font-size: 13px;
         }
+        
+        /* Ticket Popup Styles */
+        .ticket-card-popup {
+            background: linear-gradient(135deg, #1e5ba8 0%, #2d6bb3 100%);
+            border-radius: 20px;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .ticket-header-popup {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-bottom: 2px dashed rgba(255, 255, 255, 0.3);
+            position: relative;
+        }
+        
+        .ticket-close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            cursor: pointer;
+            transition: all 0.3s;
+            z-index: 10;
+        }
+        
+        .ticket-close-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(90deg);
+        }
+        
+        .university-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .logo-circle {
+            width: 35px;
+            height: 35px;
+            background: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3px;
+        }
+        
+        .university-name {
+            font-size: 18px;
+            font-weight: 700;
+            margin: 0;
+        }
+        
+        .status-badge-popup {
+            position: absolute;
+            top: 20px;
+            right: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .event-title-popup {
+            font-size: 20px;
+            font-weight: 700;
+            margin: 10px 0 5px 0;
+        }
+        
+        .event-type-popup {
+            font-size: 14px;
+            opacity: 0.9;
+            font-weight: 500;
+            margin: 0;
+        }
+        
+        .ticket-body-popup {
+            padding: 25px;
+        }
+        
+        .ticket-section {
+            margin-bottom: 15px;
+        }
+        
+        .section-label {
+            font-size: 11px;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+        
+        .section-value {
+            font-size: 15px;
+            font-weight: 600;
+        }
+        
+        .ticket-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .qr-section {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .qr-code {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto;
+        }
+        
+        .ticket-number-display {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .ticket-number-label {
+            font-size: 11px;
+            opacity: 0.7;
+            margin-bottom: 5px;
+        }
+        
+        .ticket-number-value {
+            font-size: 22px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #1e5ba8;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .attendance-status {
+            background: rgba(255, 152, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        
+        /* Registration Form Styles */
+        .form-row {
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .form-group label i {
+            color: #4a5bb8;
+            margin-right: 5px;
+            width: 16px;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            box-sizing: border-box;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #4a5bb8;
+            box-shadow: 0 0 0 3px rgba(74, 91, 184, 0.1);
+        }
+        
+        .form-group input::placeholder {
+            color: #999;
+        }
+        
+        #registrationModal .modal-content {
+            padding: 35px;
+        }
+        
+        #registrationModal h2 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 15px;
+        }
+        
+        #registrationModal h2 i {
+            color: #4a5bb8;
+        }
     </style>
 </head>
 <body>
@@ -238,7 +491,9 @@ $student_name = $_SESSION['name'];
 
     <div class="popup-overlay" id="popupOverlay" onclick="closeSuccessPopup()"></div>
     <div class="success-popup" id="successPopup">
-        <div class="icon">✅</div>
+        <div class="icon">
+            <i class="fas fa-check-circle" style="font-size: 48px; color: #4caf50;"></i>
+        </div>
         <h2>Success!</h2>
         <p>You have successfully pre-registered for this event.</p>
     </div>
@@ -252,7 +507,125 @@ $student_name = $_SESSION['name'];
         </div>
     </div>
 
+    <div id="registrationModal" class="modal">
+        <div class="modal-content" style="max-width: 550px;">
+            <span class="close" onclick="closeRegistrationModal()">&times;</span>
+            <h2 style="color: #333; margin-bottom: 25px; font-size: 24px;">
+                <i class="fas fa-user-plus"></i> Pre-Register for Event
+            </h2>
+            <form id="registrationForm" onsubmit="submitRegistration(event)">
+                <input type="hidden" id="regEventId" name="event_id">
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="studentName">
+                            <i class="fas fa-user"></i> Full Name:
+                        </label>
+                        <input type="text" id="studentName" name="student_name" required placeholder="Enter your full name">
+                    </div>
+                </div>
+                
+                <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div class="form-group">
+                        <label for="studentSection">
+                            <i class="fas fa-users"></i> Section:
+                        </label>
+                        <input type="text" id="studentSection" name="section" required placeholder="e.g., BSIT-3A">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="studentCourse">
+                            <i class="fas fa-graduation-cap"></i> Course:
+                        </label>
+                        <input type="text" id="studentCourse" name="course" required placeholder="e.g., Bachelor of Science in IT">
+                    </div>
+                </div>
+                
+                <div class="modal-buttons" style="margin-top: 30px; display: flex; gap: 10px;">
+                    <button type="submit" class="btn-save" style="flex: 2;">
+                        <i class="fas fa-check-circle"></i> Submit Registration
+                    </button>
+                    <button type="button" class="btn-cancel" onclick="closeRegistrationModal()" style="flex: 1;">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="ticketModal" class="modal">
+        <div class="modal-content" style="max-width: 500px; padding: 0; overflow: hidden;">
+            <div class="ticket-card-popup">
+                <div class="ticket-header-popup">
+                    <div class="ticket-close-btn" onclick="closeTicketModal()">&times;</div>
+                    <div class="university-logo">
+                        <div class="logo-circle">
+                            <img src="assets/national-university-philippines-logo-png_seeklogo-499282-removebg-preview.png" 
+                                 alt="NU Logo" 
+                                 style="width: 32px; height: 32px; object-fit: contain;">
+                        </div>
+                        <h1 class="university-name">NationalU</h1>
+                    </div>
+                    <span class="status-badge-popup">PRE-REGISTERED</span>
+                    <h2 class="event-title-popup" id="ticketEventTitle"></h2>
+                    <p class="event-type-popup" id="ticketEventType"></p>
+                </div>
+                
+                <div class="ticket-body-popup">
+                    <div class="ticket-section">
+                        <div class="section-label">ADDRESS</div>
+                        <div class="section-value" id="ticketLocation"></div>
+                    </div>
+                    
+                    <div class="ticket-grid">
+                        <div class="ticket-section">
+                            <div class="section-label">STUDENT</div>
+                            <div class="section-value" id="ticketStudentName"></div>
+                        </div>
+                        <div class="ticket-section">
+                            <div class="section-label">SECTION</div>
+                            <div class="section-value" id="ticketSection"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="ticket-section">
+                        <div class="section-label">COURSE</div>
+                        <div class="section-value" id="ticketCourse"></div>
+                    </div>
+                    
+                    <div class="ticket-section">
+                        <div class="section-label">EVENT DATE & TIME</div>
+                        <div class="section-value" id="ticketDateTime"></div>
+                    </div>
+                    
+                    <div class="qr-section">
+                        <div class="qr-code" id="ticketQRCode"></div>
+                    </div>
+                    
+                    <div class="ticket-number-display">
+                        <div class="ticket-number-label">Ticket No.</div>
+                        <div class="ticket-number-value" id="ticketNumber"></div>
+                    </div>
+                    
+                    <div class="attendance-status not-attended">
+                        <i class="fas fa-clock"></i> Present this ticket at the event venue
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button class="btn btn-primary" onclick="printTicket()">
+                            <i class="fas fa-print"></i> Print Ticket
+                        </button>
+                        <button class="btn btn-secondary" onclick="closeTicketModal()">
+                            <i class="fas fa-check"></i> Done
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <?php include 'profile_menu_popup.php'; ?>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="calendar_functions.js"></script>
     <script>
         const studentId = <?php echo $student_id; ?>;
@@ -309,15 +682,27 @@ $student_name = $_SESSION['name'];
         }
 
         function loadRegisteredEvents() {
-            fetch('get_registered_events.php')
+            return fetch('get_registered_events.php')
                 .then(response => response.json())
                 .then(data => {
+                    console.log('Registered events response:', data); // Debug log
                     if (data.success) {
                         registeredEvents = data.events;
+                        console.log('Loaded registered events:', registeredEvents); // Debug log
                         displayRegisteredEvents();
+                        return data.events;
+                    } else {
+                        console.error('Failed to load registered events:', data.message);
+                        if (data.error_details) {
+                            console.error('Error details:', data.error_details);
+                        }
+                        return [];
                     }
                 })
-                .catch(error => console.error('Error loading registered events:', error));
+                .catch(error => {
+                    console.error('Error loading registered events:', error);
+                    return [];
+                });
         }
 
         function displayRegisteredEvents() {
@@ -329,6 +714,20 @@ $student_name = $_SESSION['name'];
 
             let html = '';
             registeredEvents.forEach(event => {
+                const attendedBadge = event.attended 
+                    ? '<span style="color: #4caf50; font-size: 12px;"><i class="fas fa-check-circle"></i> Attended</span>'
+                    : '<span style="color: #ff9800; font-size: 12px;"><i class="fas fa-clock"></i> Pending</span>';
+                
+                // Show View Ticket button only if ticket number exists
+                const ticketButton = event.ticket_number 
+                    ? `<button onclick="window.location.href='view_ticket.php?ticket=${event.ticket_number}'" 
+                              style="margin-top: 8px; width: 100%; padding: 8px; background: #1976d2; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 12px;">
+                          <i class="fas fa-ticket-alt"></i> View Ticket
+                       </button>`
+                    : `<div style="margin-top: 8px; padding: 8px; background: #f5f5f5; border-radius: 4px; text-align: center; font-size: 11px; color: #999;">
+                          <i class="fas fa-info-circle"></i> Old registration (no ticket)
+                       </div>`;
+                
                 html += `<div class="registered-event-item">
                             <div class="registered-event-title">${event.title}</div>
                             <div class="registered-event-date">
@@ -337,9 +736,81 @@ $student_name = $_SESSION['name'];
                             <div class="registered-event-date">
                                 <i class="fas fa-clock"></i> ${formatTime(new Date(event.start_date))}
                             </div>
+                            <div style="margin-top: 8px;">
+                                ${attendedBadge}
+                            </div>
+                            ${ticketButton}
                         </div>`;
             });
             container.innerHTML = html;
+        }
+        
+        function showExistingTicket(eventId, ticketNumber) {
+            // Find the event
+            const event = allEvents.find(e => e.id == eventId);
+            if (!event) {
+                window.location.href = 'view_ticket.php?ticket=' + ticketNumber;
+                return;
+            }
+            
+            // Find the registration from our loaded data
+            const registration = registeredEvents.find(r => r.id == eventId);
+            if (!registration) {
+                window.location.href = 'view_ticket.php?ticket=' + ticketNumber;
+                return;
+            }
+            
+            // Show the modal with the data we have
+            showTicketModalFromRegistration(registration, event);
+        }
+        
+        function showTicketModalFromRegistration(registration, event) {
+            // Populate ticket modal with existing registration
+            document.getElementById('ticketEventTitle').textContent = event.title;
+            document.getElementById('ticketEventType').textContent = event.event_type;
+            document.getElementById('ticketLocation').textContent = event.location || 'To be announced';
+            
+            // Get student info from the registration data in get_registered_events
+            // Since we don't store it separately, we'll need to fetch it
+            fetch('get_registration_info.php?ticket=' + registration.ticket_number)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('ticketStudentName').textContent = data.student_name;
+                        document.getElementById('ticketSection').textContent = data.section;
+                        document.getElementById('ticketCourse').textContent = data.course;
+                        
+                        // Format date and time
+                        const startDate = new Date(event.start_date);
+                        const dateStr = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+                        const timeStr = startDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                        document.getElementById('ticketDateTime').textContent = `${dateStr} at ${timeStr}`;
+                        
+                        document.getElementById('ticketNumber').textContent = registration.ticket_number;
+                        
+                        // Generate QR code
+                        const qrContainer = document.getElementById('ticketQRCode');
+                        qrContainer.innerHTML = ''; // Clear previous QR code
+                        new QRCode(qrContainer, {
+                            text: registration.ticket_number,
+                            width: 200,
+                            height: 200,
+                            colorDark: "#1e5ba8",
+                            colorLight: "#ffffff",
+                            correctLevel: QRCode.CorrectLevel.H
+                        });
+                        
+                        // Show modal
+                        document.getElementById('ticketModal').style.display = 'block';
+                    } else {
+                        // Fallback to view_ticket.php
+                        window.location.href = 'view_ticket.php?ticket=' + registration.ticket_number;
+                    }
+                })
+                .catch(() => {
+                    // Fallback to view_ticket.php
+                    window.location.href = 'view_ticket.php?ticket=' + registration.ticket_number;
+                });
         }
 
         function isEventRegistered(eventId) {
@@ -347,25 +818,152 @@ $student_name = $_SESSION['name'];
         }
 
         function registerForEvent(eventId) {
+            // Check if already registered
+            if (isEventRegistered(eventId)) {
+                alert('You are already registered for this event!');
+                closeEventViewModal();
+                return;
+            }
+            
+            // Open registration form modal
+            document.getElementById('regEventId').value = eventId;
+            document.getElementById('registrationModal').style.display = 'block';
+            closeEventViewModal();
+        }
+
+        function closeRegistrationModal() {
+            document.getElementById('registrationModal').style.display = 'none';
+            document.getElementById('registrationForm').reset();
+        }
+
+        function submitRegistration(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const eventId = formData.get('event_id');
+            
+            // Double check if already registered
+            if (isEventRegistered(eventId)) {
+                alert('You are already registered for this event!');
+                closeRegistrationModal();
+                return false;
+            }
+            
             fetch('register_event.php', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'event_id=' + eventId
+                body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    showSuccessPopup();
+                    closeRegistrationModal();
+                    
+                    // Update registered events list before redirecting
                     loadRegisteredEvents();
-                    closeEventViewModal();
+                    
+                    // Small delay to ensure list updates, then redirect
+                    setTimeout(() => {
+                        window.location.href = 'view_ticket.php?ticket=' + data.ticket_number;
+                    }, 300);
                 } else {
+                    if (data.message.includes('Already registered')) {
+                        // Refresh registered events list
+                        loadRegisteredEvents();
+                    }
                     alert('Error: ' + (data.message || 'Failed to register'));
+                    closeRegistrationModal();
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
                 alert('An error occurred while registering');
             });
+            
+            return false;
+        }
+        
+        function showTicketModal(registrationData, formData, eventId) {
+            // Get event details
+            const event = allEvents.find(e => e.id == eventId);
+            if (!event) return;
+            
+            // Populate ticket modal
+            document.getElementById('ticketEventTitle').textContent = event.title;
+            document.getElementById('ticketEventType').textContent = event.event_type;
+            document.getElementById('ticketLocation').textContent = event.location || 'To be announced';
+            document.getElementById('ticketStudentName').textContent = formData.get('student_name');
+            document.getElementById('ticketSection').textContent = formData.get('section');
+            document.getElementById('ticketCourse').textContent = formData.get('course');
+            
+            // Format date and time
+            const startDate = new Date(event.start_date);
+            const dateStr = startDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+            const timeStr = startDate.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+            document.getElementById('ticketDateTime').textContent = `${dateStr} at ${timeStr}`;
+            
+            document.getElementById('ticketNumber').textContent = registrationData.ticket_number;
+            
+            // Generate QR code
+            const qrContainer = document.getElementById('ticketQRCode');
+            qrContainer.innerHTML = ''; // Clear previous QR code
+            new QRCode(qrContainer, {
+                text: registrationData.ticket_number,
+                width: 200,
+                height: 200,
+                colorDark: "#1e5ba8",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+            
+            // Show modal
+            document.getElementById('ticketModal').style.display = 'block';
+        }
+        
+        function closeTicketModal() {
+            document.getElementById('ticketModal').style.display = 'none';
+        }
+        
+        function printTicket() {
+            // Create a new window with just the ticket content
+            const ticketContent = document.querySelector('.ticket-card-popup').innerHTML;
+            const printWindow = window.open('', '', 'height=800,width=600');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Event Ticket</title>
+                    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+                    <style>
+                        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+                        body { font-family: 'Poppins', sans-serif; margin: 20px; }
+                        .ticket-card-popup { background: linear-gradient(135deg, #1e5ba8 0%, #2d6bb3 100%); border-radius: 20px; color: white; overflow: hidden; }
+                        .ticket-header-popup { background: rgba(255, 255, 255, 0.1); padding: 25px; border-bottom: 2px dashed rgba(255, 255, 255, 0.3); }
+                        .university-logo { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
+                        .logo-circle { width: 40px; height: 40px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; padding: 3px; }
+                        .university-name { font-size: 18px; font-weight: 700; margin: 0; }
+                        .status-badge-popup { background: rgba(255, 255, 255, 0.2); padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+                        .event-title-popup { font-size: 20px; font-weight: 700; margin: 10px 0 5px 0; }
+                        .event-type-popup { font-size: 14px; opacity: 0.9; margin: 0; }
+                        .ticket-body-popup { padding: 25px; }
+                        .section-label { font-size: 11px; opacity: 0.7; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+                        .section-value { font-size: 15px; font-weight: 600; }
+                        .ticket-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0; }
+                        .qr-section { background: white; padding: 20px; border-radius: 12px; text-align: center; margin: 20px 0; }
+                        .ticket-number-display { background: rgba(255, 255, 255, 0.15); padding: 12px 20px; border-radius: 8px; text-align: center; margin: 15px 0; }
+                        .ticket-number-label { font-size: 11px; opacity: 0.7; margin-bottom: 5px; }
+                        .ticket-number-value { font-size: 22px; font-weight: 700; letter-spacing: 2px; }
+                        .attendance-status { background: rgba(255, 152, 0, 0.3); padding: 15px; border-radius: 8px; text-align: center; margin-top: 15px; }
+                        .action-buttons, .ticket-close-btn { display: none !important; }
+                    </style>
+                </head>
+                <body>
+                    <div class="ticket-card-popup">${ticketContent}</div>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            setTimeout(() => {
+                printWindow.print();
+            }, 250);
         }
 
         function showSuccessPopup() {
@@ -380,33 +978,37 @@ $student_name = $_SESSION['name'];
         }
 
         function viewEventDetails(eventId) {
-            const event = allEvents.find(e => e.id == eventId);
-            if (!event) return;
+            // Reload registered events first to get latest data
+            loadRegisteredEvents().then(() => {
+                const event = allEvents.find(e => e.id == eventId);
+                if (!event) return;
 
-            const isRegistered = isEventRegistered(eventId);
-            
-            document.getElementById('viewEventTitle').textContent = event.title;
-            document.getElementById('viewEventDetails').innerHTML = `
-                <p><strong>Type:</strong> ${event.event_type}</p>
-                <p><strong>Date:</strong> ${formatEventDate(event.start)}</p>
-                <p><strong>Time:</strong> ${formatTime(event.start)} - ${formatTime(event.end)}</p>
-                <p><strong>Location:</strong> ${event.location || 'TBA'}</p>
-                <p><strong>Description:</strong> ${event.description || 'No description'}</p>
-            `;
-            
-            document.getElementById('viewEventActions').innerHTML = isRegistered
-                ? '<button class="btn-registered"><i class="fas fa-check"></i> Already Registered</button>'
-                : `<button class="btn-register" onclick="registerForEvent(${eventId})">Pre-Register</button>`;
-            
-            document.getElementById('eventViewModal').style.display = 'block';
+                const isRegistered = isEventRegistered(eventId);
+                
+                document.getElementById('viewEventTitle').textContent = event.title;
+                document.getElementById('viewEventDetails').innerHTML = `
+                    <p><strong>Type:</strong> ${event.event_type}</p>
+                    <p><strong>Date:</strong> ${formatEventDate(event.start)}</p>
+                    <p><strong>Time:</strong> ${formatTime(event.start)} - ${formatTime(event.end)}</p>
+                    <p><strong>Location:</strong> ${event.location || 'TBA'}</p>
+                    <p><strong>Description:</strong> ${event.description || 'No description'}</p>
+                `;
+                
+                const ticketNumber = registeredEvents.find(e => e.id == eventId)?.ticket_number;
+                
+                document.getElementById('viewEventActions').innerHTML = isRegistered
+                    ? `<button class="btn-registered"><i class="fas fa-check"></i> Already Registered</button>
+                       ${ticketNumber ? `<button class="btn-register" style="margin-top: 10px;" onclick="window.location.href='view_ticket.php?ticket=${ticketNumber}'"><i class="fas fa-ticket-alt"></i> View Ticket</button>` : ''}`
+                    : `<button class="btn-register" onclick="registerForEvent(${eventId})">Pre-Register</button>`;
+                
+                document.getElementById('eventViewModal').style.display = 'block';
+            });
         }
 
         function closeEventViewModal() {
             document.getElementById('eventViewModal').style.display = 'none';
         }
 
-        // Include all the calendar rendering functions from calendar_functions.js
-        // The functions are already included above in the script
     </script>
 </body>
 </html>
