@@ -403,6 +403,78 @@ $student_name = $_SESSION['name'];
         #registrationModal h2 i {
             color: #4a5bb8;
         }
+        
+        /* Ongoing Events Section */
+        .ongoing-events {
+            max-height: 300px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .ongoing-events h3 {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .ongoing-event-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background 0.2s;
+            background: linear-gradient(135deg, #36408b 0%, #2d3470 100%);
+            color: white;
+            box-shadow: 0 2px 8px rgba(54, 64, 139, 0.3);
+        }
+        
+        .ongoing-event-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(54, 64, 139, 0.4);
+        }
+        
+        .ongoing-color-bar {
+            width: 4px;
+            border-radius: 2px;
+            background: white;
+        }
+        
+        .ongoing-event-details {
+            flex: 1;
+        }
+        
+        .ongoing-event-title {
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+        
+        .ongoing-event-time {
+            font-size: 11px;
+            opacity: 0.9;
+        }
+        
+        .no-ongoing-events {
+            text-align: center;
+            padding: 15px;
+            color: #999;
+            font-size: 13px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
     </style>
 </head>
 <body>
@@ -441,6 +513,11 @@ $student_name = $_SESSION['name'];
                     <button class="mini-nav-btn" onclick="nextMonth()"><i class="fas fa-chevron-right"></i></button>
                 </div>
                 <div class="mini-calendar-grid"></div>
+            </div>
+
+            <div class="ongoing-events">
+                <h3><i class="fas fa-circle" style="color: #4caf50; font-size: 10px; animation: pulse 2s infinite;"></i> Ongoing Events</h3>
+                <p class="loading">Loading events...</p>
             </div>
 
             <div class="upcoming-events">
@@ -645,6 +722,7 @@ $student_name = $_SESSION['name'];
             renderCalendar();
             updateMiniCalendar();
             setupEventListeners();
+            displayOngoingEvents();
         });
 
         function setupEventListeners() {
@@ -669,6 +747,7 @@ $student_name = $_SESSION['name'];
                             end: parseApiDate(event.end_date)
                         }));
                         renderCalendar();
+                        displayOngoingEvents();
                         displayUpcomingEvents();
                     }
                 })
@@ -679,6 +758,44 @@ $student_name = $_SESSION['name'];
             if (!value) return null;
             const str = typeof value === 'string' ? value.replace(' ', 'T') : value;
             return new Date(str);
+        }
+        
+        function displayOngoingEvents() {
+            const container = document.querySelector('.ongoing-events');
+            if (!container) return;
+            
+            const today = new Date();
+            const todayStart = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 0, 0, 0);
+            const todayEnd = new Date(today.getFullYear(), today.getMonth(), today.getDate(), 23, 59, 59);
+            
+            let html = '<h3><i class="fas fa-circle" style="color: #36408b; font-size: 10px; animation: pulse 2s infinite;"></i> Ongoing Events</h3>';
+            
+            const ongoing = allEvents.filter(e => {
+                const eventStart = new Date(e.start);
+                const eventEnd = new Date(e.end);
+                // Event is ongoing if it started today or is currently in progress
+                return (eventStart <= todayEnd && eventEnd >= todayStart);
+            }).sort((a, b) => new Date(a.start) - new Date(b.start));
+            
+            if (ongoing.length === 0) {
+                html += '<div class="no-ongoing-events"><i class="fas fa-calendar-check"></i> No events happening today</div>';
+            } else {
+                ongoing.forEach(event => {
+                    const eventStart = new Date(event.start);
+                    const isHappeningNow = eventStart <= today && new Date(event.end) >= today;
+                    const status = isHappeningNow ? '🔴 LIVE NOW' : 'Today';
+                    
+                    html += `<div class="ongoing-event-item" onclick="viewEventDetails(${event.id})">
+                                <div class="ongoing-color-bar"></div>
+                                <div class="ongoing-event-details">
+                                    <p class="ongoing-event-title">${event.title}</p>
+                                    <p class="ongoing-event-time">${status} | ${formatTime(event.start)}</p>
+                                </div>
+                             </div>`;
+                });
+            }
+            
+            container.innerHTML = html;
         }
 
         function loadRegisteredEvents() {

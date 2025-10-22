@@ -385,7 +385,15 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         </div>
 
         <div class="recent-checkins">
-            <h2><i class="fas fa-history"></i> Recent Check-ins</h2>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2 style="margin: 0;"><i class="fas fa-history"></i> Recent Check-ins</h2>
+                <button onclick="clearRecentCheckins()" 
+                        style="padding: 8px 16px; background: #dc3545; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: 600; transition: all 0.3s;"
+                        onmouseover="this.style.background='#c82333'" 
+                        onmouseout="this.style.background='#dc3545'">
+                    <i class="fas fa-trash-alt"></i> Clear History
+                </button>
+            </div>
             <table class="checkin-table">
                 <thead>
                     <tr>
@@ -413,6 +421,32 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
         let currentTicketData = null;
         let recentCheckins = [];
         let html5QrCode = null;
+        
+        // Load recent check-ins from localStorage on page load
+        function loadRecentCheckins() {
+            const saved = localStorage.getItem('recentCheckins');
+            if (saved) {
+                try {
+                    recentCheckins = JSON.parse(saved);
+                    updateRecentCheckinsTable();
+                } catch (e) {
+                    console.error('Error loading check-ins:', e);
+                    recentCheckins = [];
+                }
+            }
+        }
+        
+        // Save recent check-ins to localStorage
+        function saveRecentCheckins() {
+            try {
+                localStorage.setItem('recentCheckins', JSON.stringify(recentCheckins));
+            } catch (e) {
+                console.error('Error saving check-ins:', e);
+            }
+        }
+        
+        // Load check-ins when page loads
+        loadRecentCheckins();
         
         // Initialize QR Code Scanner
         function initQRScanner() {
@@ -463,6 +497,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             event.preventDefault();
             const ticketNumber = document.getElementById('ticketNumber').value.trim();
             verifyTicket(ticketNumber);
+            // Clear input immediately for next entry
+            document.getElementById('ticketNumber').value = '';
             return false;
         }
         
@@ -475,24 +511,20 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             .then(response => response.json())
             .then(data => {
                 displayResult(data);
-                // Resume scanning after processing
-                setTimeout(() => {
-                    if (html5QrCode && html5QrCode.getState() === 2) {
-                        html5QrCode.resume();
-                        document.getElementById('scanner-status').innerHTML = '<i class="fas fa-camera"></i> Camera ready - Point at QR code';
-                    }
-                }, 2000);
+                // Resume scanning immediately for next ticket
+                if (html5QrCode && html5QrCode.getState() === 2) {
+                    html5QrCode.resume();
+                    document.getElementById('scanner-status').innerHTML = '<i class="fas fa-camera"></i> Ready for next scan';
+                }
             })
             .catch(error => {
                 console.error('Error:', error);
                 showError('Verification failed. Please try again.');
-                // Resume scanning after error
-                setTimeout(() => {
-                    if (html5QrCode && html5QrCode.getState() === 2) {
-                        html5QrCode.resume();
-                        document.getElementById('scanner-status').innerHTML = '<i class="fas fa-camera"></i> Camera ready - Point at QR code';
-                    }
-                }, 2000);
+                // Resume scanning immediately after error
+                if (html5QrCode && html5QrCode.getState() === 2) {
+                    html5QrCode.resume();
+                    document.getElementById('scanner-status').innerHTML = '<i class="fas fa-camera"></i> Ready for next scan';
+                }
             });
         }
         
@@ -597,15 +629,21 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             const now = new Date();
             recentCheckins.unshift({
                 time: now.toLocaleTimeString(),
+                date: now.toLocaleDateString(),
                 ticket_number: registration.ticket_number,
                 student_name: registration.student_name,
                 event_title: registration.event_title,
-                section: registration.section
+                section: registration.section,
+                timestamp: now.getTime()
             });
             
-            if (recentCheckins.length > 10) {
-                recentCheckins.pop();
+            // Keep only last 50 check-ins
+            if (recentCheckins.length > 50) {
+                recentCheckins = recentCheckins.slice(0, 50);
             }
+            
+            // Save to localStorage
+            saveRecentCheckins();
             
             updateRecentCheckinsTable();
         }
@@ -618,10 +656,12 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             }
             
             let html = '';
-            recentCheckins.forEach(checkin => {
+            // Show only last 10 in table
+            recentCheckins.slice(0, 10).forEach(checkin => {
+                const displayTime = checkin.date ? `${checkin.date} ${checkin.time}` : checkin.time;
                 html += `
                     <tr>
-                        <td>${checkin.time}</td>
+                        <td>${displayTime}</td>
                         <td><strong>${checkin.ticket_number}</strong></td>
                         <td>${checkin.student_name}</td>
                         <td>${checkin.event_title}</td>
@@ -657,6 +697,15 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
             document.getElementById('resultMessage').textContent = message;
             document.getElementById('resultDetails').innerHTML = '';
             document.getElementById('confirmBtn').style.display = 'none';
+        }
+        
+        function clearRecentCheckins() {
+            if (confirm('Are you sure you want to clear all recent check-ins history?\n\nThis will only clear the display history, not the attendance records in the database.')) {
+                recentCheckins = [];
+                saveRecentCheckins();
+                updateRecentCheckinsTable();
+                alert('Check-in history cleared successfully!');
+            }
         }
     </script>
 </body>
