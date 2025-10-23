@@ -82,7 +82,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>📧 Email Configuration Test</h1>
+        <h1> Email Configuration Test</h1>
         <p>This page helps you test if email sending is working on your server.</p>
 
         <?php
@@ -90,9 +90,9 @@
         echo '<div class="test-section">';
         echo '<h3>Test 1: PHP mail() Function</h3>';
         if (function_exists('mail')) {
-            echo '<div class="success">✅ mail() function is available</div>';
+            echo '<div class="success"> mail() function is available</div>';
         } else {
-            echo '<div class="error">❌ mail() function is NOT available</div>';
+            echo '<div class="error"> mail() function is NOT available</div>';
         }
         echo '</div>';
 
@@ -119,7 +119,7 @@
                 
                 if (@mail($test_email, $subject, $message, $headers)) {
                     echo '<div class="success">';
-                    echo '✅ Email sent successfully to: ' . htmlspecialchars($test_email);
+                    echo ' Email sent successfully to: ' . htmlspecialchars($test_email);
                     echo '<br><br><strong>Next steps:</strong>';
                     echo '<ol>';
                     echo '<li>Check your inbox</li>';
@@ -129,7 +129,7 @@
                     echo '</div>';
                 } else {
                     echo '<div class="error">';
-                    echo '❌ Email sending failed!';
+                    echo ' Email sending failed!';
                     echo '<br><br><strong>Possible reasons:</strong>';
                     echo '<ul>';
                     echo '<li>SMTP is not configured on this server</li>';
@@ -167,7 +167,7 @@
         
         $result = $conn->query("SHOW TABLES LIKE 'password_resets'");
         if ($result->num_rows > 0) {
-            echo '<div class="success">✅ password_resets table exists</div>';
+            echo '<div class="success"> password_resets table exists</div>';
             
             // Check recent codes
             $recent = $conn->query("SELECT COUNT(*) as count FROM password_resets");
@@ -185,7 +185,7 @@
                 echo '</div>';
             }
         } else {
-            echo '<div class="error">❌ password_resets table does not exist</div>';
+            echo '<div class="error"> password_resets table does not exist</div>';
         }
         echo '</div>';
         ?>
@@ -199,7 +199,7 @@
         </div>
 
         <div class="info">
-            <h3>📖 How to Fix Email Issues:</h3>
+            <h3> How to Fix Email Issues:</h3>
             <ol>
                 <li><strong>For Testing (XAMPP):</strong> Check the error log file for verification codes</li>
                 <li><strong>For Production:</strong> Set up Gmail SMTP (see EMAIL_SETUP_GUIDE.md)</li>
